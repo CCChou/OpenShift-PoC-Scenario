@@ -6,3 +6,6 @@
 3. 維運功能
 4. Service Mesh
 5. 叢集管理
+
+## Reference
+1. [PoC workshop](https://docs.google.com/spreadsheets/d/1XZHA6xIQ2gUoFnJQGovY5RXVhrRqFDFq-jzra3Rdzic/edit?usp=sharing)
