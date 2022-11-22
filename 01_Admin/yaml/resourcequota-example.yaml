@@ -1,0 +1,12 @@
+﻿apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: example
+  namespace: demo01
+spec:
+  hard:
+    pods: '5'
+    requests.cpu: '1'
+    requests.memory: 1Gi
+    limits.cpu: '20'
+    limits.memory: 20Gi

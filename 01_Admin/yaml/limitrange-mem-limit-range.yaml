@@ -1,0 +1,12 @@
+﻿apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-limit-range
+  namespace: demo02
+spec:
+  limits:
+    - default:
+        memory: 512Mi
+      defaultRequest:
+        memory: 256Mi
+      type: Container
