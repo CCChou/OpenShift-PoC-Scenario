@@ -7,7 +7,6 @@
 <br/>
 
 ## 基本設定
----
 
 將要納管的 Project 加入 ServiceMeshMemberRolls 內
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/04_ServiceMesh/img/01.JPG)
@@ -29,7 +28,6 @@ oc apply -f 04_ServiceMesh/yaml/01_setup.yml
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/04_ServiceMesh/img/10.jpg)
 
 ## 藍綠部署
----
 
 透過 VirtualService 調整流量導向哪個服務
 ```
@@ -40,7 +38,6 @@ oc apply -f 04_ServiceMesh/yaml/02_bluegreen.yml
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/04_ServiceMesh/img/11.jpg)
 
 ## 金絲雀部署
----
 
 透過 VirtualService 調整流量導向權重
 ```
@@ -51,7 +48,6 @@ oc apply -f 04_ServiceMesh/yaml/03_canary.yml
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/04_ServiceMesh/img/12.jpg)
 
 ## AB 測試
----
 
 透過 VirtualService 調整路由規則，讓某些使用者導向測試用頁面
 ```
@@ -65,7 +61,6 @@ oc apply -f 04_ServiceMesh/yaml/04_abtesting.yml
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/04_ServiceMesh/img/11.jpg)
 
 ## Tracing
----
 
 從 Kiali 介面可以開啟 Jaeger
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/04_ServiceMesh/img/14.jpg)
