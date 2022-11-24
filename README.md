@@ -21,6 +21,8 @@
   - [ ] Deploy
   - [ ] Operation
   - [ ] Service Mesh
+- [ ] 調整 Deploy 內容
+  - [ ] ArgoCD 部署
 
 ## Reference
 1. [PoC workshop](https://docs.google.com/spreadsheets/d/1XZHA6xIQ2gUoFnJQGovY5RXVhrRqFDFq-jzra3Rdzic/edit?usp=sharing)
