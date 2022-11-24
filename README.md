@@ -8,9 +8,19 @@
 5. [叢集管理](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/README.md)
 
 ## TODO
-1. 調整格式，確保一致性
-2. 增加環境 setup 用的 script，包括 operator 安裝等自動化
-3. ...etc
+- [ ] 調整格式，確保一致性
+  - [ ] Admin
+  - [ ] Deploy
+  - [ ] Operation
+- [ ] YAML 整理
+  - [ ] Admin
+  - [ ] Deploy
+  - [ ] Operation
+- [ ]  增加環境 setup 用的 script，包括 operator 安裝等自動化
+  - [ ] Admin
+  - [ ] Deploy
+  - [ ] Operation
+  - [ ] Service Mesh
 
 ## Reference
 1. [PoC workshop](https://docs.google.com/spreadsheets/d/1XZHA6xIQ2gUoFnJQGovY5RXVhrRqFDFq-jzra3Rdzic/edit?usp=sharing)
