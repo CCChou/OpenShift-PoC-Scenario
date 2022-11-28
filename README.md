@@ -6,6 +6,7 @@
 3. [維運功能](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/03_Operation/README.md)
 4. [Service Mesh](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/04_ServiceMesh/README.md)
 5. [叢集管理](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/README.md)
+6. [Serverless](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/06_Serverless/README.md)
 
 ## Env
 
