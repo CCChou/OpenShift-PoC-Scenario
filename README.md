@@ -7,6 +7,10 @@
 4. [Service Mesh](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/04_ServiceMesh/README.md)
 5. [叢集管理](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/README.md)
 
+## Env
+
+OpenShift 4.10
+
 ## TODO
 - [ ] 調整格式，確保一致性
   - [ ] Admin
