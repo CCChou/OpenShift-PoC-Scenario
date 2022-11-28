@@ -9,7 +9,7 @@
 
 ## Env
 
-OpenShift 4.10
+基於 RHPDS 的 OpenShift 4.10 WorkShop 環境。
 
 ## TODO
 - [ ] 調整格式，確保一致性
