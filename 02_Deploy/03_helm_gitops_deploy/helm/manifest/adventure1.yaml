@@ -61,7 +61,7 @@ spec:
       containers:
         - name: myapp
           securityContext: {}
-          image: "nginx:1.16.0"
+          image: quay.io/siamaksade/spring-petclinic:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
