@@ -7,9 +7,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: {{ .Values.service.portName }}
+  {{- if .Values.service.portName }}
+  - name: {{ .Values.service.portName }}
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetPort }}
+  {{- end }}
+  {{- with .Values.service.ports  }}
+{{ toYaml . | indent 2 }}
+  {{- end }}
   selector:
     {{- include "myapp.selectorLabels" . | nindent 4 }}
