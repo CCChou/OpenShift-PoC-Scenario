@@ -38,12 +38,18 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
-service:
-  type: ClusterIP
+deploy:
   ports:
     - name: http
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  route:
+    enabled: true
+    targetPort: http
+
+service:
+  type: ClusterIP
 
 ingress:
   enabled: false
@@ -62,9 +68,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
-route:
-  enabled: true
 
 resources:
   {}
