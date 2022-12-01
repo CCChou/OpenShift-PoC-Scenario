@@ -62,8 +62,6 @@ ingress:
 
 route:
   enabled: true
-  service:
-    portName: http
 
 resources:
   {}
