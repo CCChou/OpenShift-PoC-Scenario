@@ -41,8 +41,8 @@ securityContext:
 deploy:
   ports:
     - name: http
-      port: 8080
-      targetPort: 8080
+      port: 80
+      targetPort: 80
       protocol: TCP
 
 service:
@@ -50,7 +50,7 @@ service:
 
 route:
   enabled: true
-  targetPort: 8080
+  targetPort: 80
 
 ingress:
   enabled: false
