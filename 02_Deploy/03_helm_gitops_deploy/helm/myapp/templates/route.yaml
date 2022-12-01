@@ -7,19 +7,17 @@ metadata:
   labels:
     {{- include "myapp.labels" . | nindent 4 }}
   annotations:
-    {{- range $key, $value := .Values.route.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+    "helm.sh/hook": post-install,post-upgrade
 spec:
   host: {{ .Values.route.path }}
   port:
-    targetPort: {{ .Values.deploy.route.targetPort }}
+    targetPort: {{ .Values.route.targetPort }}
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
   to:
     kind: Service
-    name: {{ .Values.service.name }}
+    name: {{ $fullName }}
     weight: 100
   wildcardPolicy: None
 {{- end }}

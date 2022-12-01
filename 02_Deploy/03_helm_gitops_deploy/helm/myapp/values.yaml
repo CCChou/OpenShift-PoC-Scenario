@@ -44,12 +44,13 @@ deploy:
       port: 8080
       targetPort: 8080
       protocol: TCP
-  route:
-    enabled: true
-    targetPort: http
 
 service:
   type: ClusterIP
+
+route:
+  enabled: true
+  targetPort: 8080
 
 ingress:
   enabled: false
