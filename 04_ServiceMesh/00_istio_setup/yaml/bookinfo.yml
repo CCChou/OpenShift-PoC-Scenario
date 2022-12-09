@@ -6,6 +6,15 @@ kind: ProjectRequest
 metadata:
     name: bookinfo
 ---
+kind: ServiceMeshMemberRoll
+apiVersion: maistra.io/v1
+metadata:
+  name: default
+  namespace: istio-system
+spec:
+  members:
+    - bookinfo
+---
 apiVersion: v1
 kind: Service
 metadata:

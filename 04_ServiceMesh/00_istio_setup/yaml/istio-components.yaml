@@ -38,5 +38,4 @@ metadata:
   name: default
   namespace: istio-system
 spec:
-  members:
-    - bookinfo
+  members: null
