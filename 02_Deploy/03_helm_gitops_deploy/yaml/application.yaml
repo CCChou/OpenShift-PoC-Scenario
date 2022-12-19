@@ -1,19 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: adventure1
+  name: demoweb
 spec:
   destination:
     name: ""
     namespace: helm-demo
     server: "https://kubernetes.default.svc"
   source:
-    path: ""
-    repoURL: "https://github.com/CCChou/OpenShift-PoC-Scenario/02_Deploy/03_helm_gitops_deploy/helm/"
-    targetRevision: 1.16.0
-    chart: myapp
-    directory:
-      recurse: true
+    path: 02_Deploy/03_helm_gitops_deploy/helm/myapp
+    repoURL: "https://github.com/CCChou/OpenShift-PoC-Scenario.git"
+    targetRevision: HEAD
   project: default
   syncPolicy:
     automated:
