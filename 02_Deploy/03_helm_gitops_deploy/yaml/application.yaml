@@ -8,7 +8,7 @@ spec:
     namespace: helm-demo
     server: "https://kubernetes.default.svc"
   source:
-    path: 02_Deploy/03_helm_gitops_deploy/helm/myapp
+    path: 02_Deploy/03_helm_gitops_deploy/helm/springboot-demoweb
     repoURL: "https://github.com/CCChou/OpenShift-PoC-Scenario.git"
     targetRevision: HEAD
   project: default
