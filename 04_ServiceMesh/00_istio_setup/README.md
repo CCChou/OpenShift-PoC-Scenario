@@ -12,5 +12,5 @@ oc apply -f yaml/istio-components.yaml
 
 部署 sample app
 ```
-oc apply -f yaml/bookinfo.yaml
+sh scripts/deploy_app.sh [namespace]
 ```

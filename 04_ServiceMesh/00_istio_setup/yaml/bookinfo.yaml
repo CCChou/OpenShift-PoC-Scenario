@@ -1,10 +1,10 @@
 ---
 apiVersion: project.openshift.io/v1
 description: "Bookinfo demo"
-displayName: bookinfo
+displayName: ${NAMESPACE}
 kind: ProjectRequest
 metadata:
-    name: bookinfo
+    name: ${NAMESPACE}
 ---
 kind: ServiceMeshMemberRoll
 apiVersion: maistra.io/v1
@@ -13,13 +13,13 @@ metadata:
   namespace: istio-system
 spec:
   members:
-    - bookinfo
+    - ${NAMESPACE}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: details
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     app: details
     service: details
@@ -34,7 +34,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: bookinfo-details
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     account: details
 ---
@@ -42,7 +42,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: details-v1
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     app: details
     version: v1
@@ -75,7 +75,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ratings
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     app: ratings
     service: ratings
@@ -90,7 +90,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: bookinfo-ratings
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     account: ratings
 ---
@@ -98,7 +98,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ratings-v1
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     app: ratings
     version: v1
@@ -131,7 +131,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: reviews
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     app: reviews
     service: reviews
@@ -146,7 +146,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: bookinfo-reviews
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     account: reviews
 ---
@@ -154,7 +154,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: reviews-v2
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     app: reviews
     version: v2
@@ -197,7 +197,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: reviews-v3
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     app: reviews
     version: v3
@@ -243,7 +243,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: productpage
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     app: productpage
     service: productpage
@@ -258,7 +258,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: bookinfo-productpage
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     account: productpage
 ---
@@ -266,7 +266,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: productpage-v1
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
   labels:
     app: productpage
     version: v1
@@ -305,7 +305,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: bookinfo-gateway
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
 spec:
   selector:
     istio: ingressgateway # use istio default controller
@@ -324,7 +324,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: bookinfo
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
 spec:
   hosts:
   - "*"
@@ -355,7 +355,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: productpage
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
 spec:
   host: productpage
   subsets:
@@ -367,7 +367,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: reviews
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
 spec:
   host: reviews
   subsets:
@@ -382,7 +382,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: ratings
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
 spec:
   host: ratings
   subsets:
@@ -394,7 +394,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: details
-  namespace: bookinfo
+  namespace: ${NAMESPACE}
 spec:
   host: details
   subsets:
