@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: demoweb
+  name: quarkus-demo
 spec:
   destination:
     name: ""
     namespace: helm-demo
     server: "https://kubernetes.default.svc"
   source:
-    path: 02_Deploy/03_helm_gitops_deploy/helm/quarkus-chart
+    path: 02_Deploy/03_helm_gitops_deploy/helm/helm-guestbook
     repoURL: "https://github.com/CCChou/OpenShift-PoC-Scenario.git"
     targetRevision: HEAD
   project: default

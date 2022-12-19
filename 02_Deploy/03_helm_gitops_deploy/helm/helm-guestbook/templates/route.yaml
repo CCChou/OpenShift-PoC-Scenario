@@ -1,0 +1,20 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+  labels:
+    app: {{ template "helm-guestbook.name" . }}
+  name: {{ template "helm-guestbook.name" .}}
+spec:
+  host: {{ .Values.route.customHost }}
+  port:
+    targetPort: {{ .Values.route.targetPort }}
+  to:
+    kind: Service
+    name: {{ template "helm-guestbook.fullname" . }}
+    weight: 100
+  tls:
+    {{ toYaml .Values.route.routeTls | nindent 4 }}
+    termination: edge
+  wildcardPolicy: None
