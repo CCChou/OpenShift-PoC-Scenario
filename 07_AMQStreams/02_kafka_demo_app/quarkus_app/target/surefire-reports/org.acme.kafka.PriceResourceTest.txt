@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: org.acme.kafka.PriceResourceTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 16.901 s <<< FAILURE! - in org.acme.kafka.PriceResourceTest
+org.acme.kafka.PriceResourceTest.testPricesEventStream  Time elapsed: 0.042 s  <<< ERROR!
+java.lang.RuntimeException: java.lang.RuntimeException: Failed to start quarkus
+Caused by: java.lang.RuntimeException: Failed to start quarkus
+Caused by: javax.enterprise.inject.spi.DeploymentException: org.apache.kafka.common.KafkaException: Failed to construct kafka consumer
+Caused by: org.apache.kafka.common.KafkaException: Failed to construct kafka consumer
+Caused by: org.apache.kafka.common.config.ConfigException: No resolvable bootstrap urls given in bootstrap.servers
+
