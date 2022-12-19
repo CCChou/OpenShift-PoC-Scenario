@@ -4,9 +4,12 @@ URL=$(oc get route -n istio-system -l maistra.io/gateway-name=bookinfo-gateway|a
 echo "Call URL: $URL"
 echo "---------------"
 
+echo "Login the productpage"
+curl -d "username=dennis" -d "passwd=dennis"  -c ./cookies.txt -X POST "http://$URL/login"
+
 for i in {1..100}
 do
-    echo "Call URL with header end-user:dennis $i times"
-    curl --header "end-user:dennis" -I "http://$URL/productpage"
+    echo "Call URL $i times"
+    curl  -b ./cookies.txt -I "http://$URL/productpage"
     echo "---------------"
 done
