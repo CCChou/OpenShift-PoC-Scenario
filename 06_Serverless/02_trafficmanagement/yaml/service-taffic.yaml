@@ -1,0 +1,20 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: example-service
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/target: "10"
+    spec:
+      containers:
+      - image: gcr.io/knative-samples/autoscale-go:0.1
+  traffic:
+  - percent: 0
+    revisionName: example-service-1
+    tag: staging
+  - percent: 40
+    revisionName: example-service-2
+  - percent: 60
+    revisionName: example-service-3
