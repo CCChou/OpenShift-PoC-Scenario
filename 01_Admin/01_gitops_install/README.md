@@ -7,7 +7,7 @@
 
 安裝 GitOps Operator
 ```
-oc apply -f yaml/operator-deploy.yaml
+oc apply -f yaml/operator_deploy.yaml
 ```
 
 檢查安裝狀態
@@ -38,3 +38,10 @@ metadata
     policy: 'g, gitops-admin, role:admin'
     scopes: '[groups]'
 ```
+
+## 進階設定
+
+TODO
+1. SSO using Keycloak and Dex
+2. Resource Quota
+3. ...etc
