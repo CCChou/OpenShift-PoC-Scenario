@@ -1,8 +1,8 @@
 ﻿apiVersion: v1
 kind: ResourceQuota
 metadata:
-  name: example
-  namespace: demo01
+  name: rq
+  namespace: rqdemo
 spec:
   hard:
     pods: '5'

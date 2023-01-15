@@ -1,0 +1,33 @@
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: rqdemo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd
+  namespace: rqdemo
+spec:
+  selector:
+    matchLabels:
+      app: httpd
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+        - name: httpd
+          image: quay.io/rhtw/httpd-container
+          ports:
+            - containerPort: 8080
+          resources:
+            limits: 
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi              
+   
