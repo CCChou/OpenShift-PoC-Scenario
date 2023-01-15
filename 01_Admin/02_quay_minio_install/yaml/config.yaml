@@ -1,0 +1,13 @@
+DISTRIBUTED_STORAGE_CONFIG: 
+  default: 
+    - RadosGWStorage 
+    - access_key: T0liUKS7fo838Y02 
+      secret_key: fv8dG9OZcbJPJ5Mg8PVMzqPwYZzwHnth 
+      bucket_name: quay 
+      hostname: minio.quay-minio.svc.cluster.local 
+      is_secure: true
+      port: 443
+      storage_path: /datastorage/registry 
+DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS: [] 
+DISTRIBUTED_STORAGE_PREFERENCE: 
+    - default
