@@ -1,0 +1,27 @@
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: npdemo01
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo01
+  namespace: npdemo01
+spec:
+  selector:
+    matchLabels:
+      app: demo01
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo01
+    spec:
+      containers:
+        - name: demo01
+          image: docker.io/nicolaka/netshoot
+          command:
+            - "/bin/sh"
+            - "-c"
+            - "while true; do echo duration 5 min; sleep 300; done"

@@ -1,7 +1,8 @@
 ﻿apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: network-policy-default-deny-all
+  name: deny-all
+  namespace: npdemo02
 spec:
   podSelector: {}
   policyTypes:
