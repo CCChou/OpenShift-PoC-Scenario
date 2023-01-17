@@ -13,5 +13,5 @@ spec:
     fault:
       abort:
         percentage:
-          value: 20.0
-        httpStatus: 400
+          value: 100
+        httpStatus: 500

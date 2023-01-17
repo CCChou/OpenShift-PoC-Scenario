@@ -2,6 +2,7 @@
 
 ## 環境
 1. OpenShift 4.10
+2. Service Mesh 2.3
 
 ## 部署
 

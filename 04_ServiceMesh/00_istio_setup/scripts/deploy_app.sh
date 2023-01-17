@@ -9,3 +9,4 @@ fi
 
 
 envsubst < yaml/bookinfo.yaml | oc apply -f -
+oc project $1

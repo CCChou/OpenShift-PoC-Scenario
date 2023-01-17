@@ -10,12 +10,6 @@ spec:
     route:
     - destination:
         host: reviews
-        subset: v2
-      weight: 50
-    - destination:
-        host: reviews
-        subset: v3
-      weight: 50
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -25,9 +19,9 @@ spec:
   host: reviews
   trafficPolicy:
     outlierDetection:
-      consecutiveErrors: 1
-      interval: 1s
-      baseEjectionTime: 3m
+      consecutive5xxErrors: 3
+      interval: 10s
+      baseEjectionTime: 1m
       maxEjectionPercent: 100
   subsets:
   - name: v2
