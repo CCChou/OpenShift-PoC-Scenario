@@ -1,7 +1,7 @@
-# Service Mesh 金絲雀部署
+# Service Mesh AB Testing
 
 ## 環境
-1. OpenShift 4.10.36
+1. OpenShift 4.10
 
 ## 部署
 

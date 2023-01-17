@@ -1,7 +1,7 @@
 # Service Mesh 藍綠部署
 
 ## 環境
-1. OpenShift 4.10.36
+1. OpenShift 4.10
 
 ## 部署
 

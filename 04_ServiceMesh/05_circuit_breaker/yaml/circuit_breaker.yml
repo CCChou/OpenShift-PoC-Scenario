@@ -6,10 +6,16 @@ spec:
   hosts:
     - reviews
   http:
-  - route:
+  - match:
+    route:
+    - destination:
+        host: reviews
+        subset: v2
+      weight: 50
     - destination:
         host: reviews
         subset: v3
+      weight: 50
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
