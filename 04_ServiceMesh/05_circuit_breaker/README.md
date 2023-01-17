@@ -1,1 +1,1 @@
-# Server Mesh 熔斷機制
+# Service Mesh 熔斷機制
