@@ -21,7 +21,7 @@ oc get secret openshift-gitops-cluster -n openshift-gitops -ojsonpath='{.data.ad
 ```
 > 帳號為 admin，另外也可以選擇採用 OAuth 方式登入
 
-建立 Ｇroup
+建立 Group
 ```
 oc apply -f yaml/gitops_group.yaml
 ```
@@ -35,7 +35,9 @@ metadata
 ...
 ...
   rbac:
-    policy: 'g, gitops-admin, role:admin'
+    policy: |
+      ...
+      g, gitops-admin, role:admin
     scopes: '[groups]'
 ```
 
