@@ -13,5 +13,5 @@ oc apply -f yaml/kn-service.yaml
 
 透過 scripts 進行壓測展示 serverless 自動擴展
 ```
-./scripts/load-test.sh
+sh scripts/load-test.sh
 ```

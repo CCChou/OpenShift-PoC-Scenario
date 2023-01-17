@@ -13,7 +13,7 @@ oc apply -f yaml/knative-serving.yaml
 
 檢查安裝是否完成
 ```
-./scripts/verify.sh
+sh scripts/verify.sh
 ```
 
 ## Reference
