@@ -12,6 +12,7 @@
 | [Service Mesh](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/04_ServiceMesh/README.md) | Service Mesh 相關情境 |
 | [叢集管理](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/README.md) | 多叢集管理相關情境 |
 | [Serverless](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/06_Serverless/README.md) | Serverless 相關情境  |
+| [AMQ Stream](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/07_AMQStream/README.md) | AMQ Stream 相關情境  |
 
 ## Reference
 1. [PoC workshop](https://docs.google.com/spreadsheets/d/1XZHA6xIQ2gUoFnJQGovY5RXVhrRqFDFq-jzra3Rdzic/edit?usp=sharing)
