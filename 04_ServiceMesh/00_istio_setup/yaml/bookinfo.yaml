@@ -67,6 +67,14 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
 ---
 ##################################################################################################
 # Ratings service
@@ -123,6 +131,14 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
 ---
 ##################################################################################################
 # Reviews service
@@ -187,6 +203,14 @@ spec:
           mountPath: /tmp
         - name: wlp-output
           mountPath: /opt/ibm/wlp/output
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
       volumes:
       - name: wlp-output
         emptyDir: {}
@@ -230,6 +254,14 @@ spec:
           mountPath: /tmp
         - name: wlp-output
           mountPath: /opt/ibm/wlp/output
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
       volumes:
       - name: wlp-output
         emptyDir: {}
@@ -294,6 +326,14 @@ spec:
         volumeMounts:
         - name: tmp
           mountPath: /tmp
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
       volumes:
       - name: tmp
         emptyDir: {}
