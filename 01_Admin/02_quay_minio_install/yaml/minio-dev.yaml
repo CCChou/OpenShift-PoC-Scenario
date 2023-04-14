@@ -56,9 +56,14 @@ spec:
   selector:
     app: minio
   ports:
-    - protocol: TCP
+    - name: 9090-tcp
+      protocol: TCP
       port: 9090
       targetPort: 9090
+    - name: 9000-tcp
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
