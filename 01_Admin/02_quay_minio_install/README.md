@@ -9,6 +9,8 @@ Apply minio yaml
 oc apply -f yaml/minio-dev.yaml
 ```
 
+接著便可以透過 Route 登入 MinIO 介面進行設定，預設 root 帳密為 minioadmin / minioadmin。
+
 ## Install Quay
 
 安裝 Quay Operator
