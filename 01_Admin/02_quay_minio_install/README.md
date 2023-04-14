@@ -4,18 +4,9 @@
 
 ## Install MinIO
 
-安裝 MinIO Operator
-... pic ...
-
-建立 Tenant
+Apply minio yaml
 ```
-
-```
->  此步驟前先確認有無 storage 可供使用
-
-建立 Bucket
-```
-
+oc apply -f yaml/minio-dev.yaml
 ```
 
 ## Install Quay
@@ -37,7 +28,7 @@ DISTRIBUTED_STORAGE_CONFIG:
       bucket_name: bucket_name_here 
       hostname: hostname_here 
       is_secure: true
-      port: 443
+      port: 9000
       storage_path: /datastorage/registry 
 DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS: [] 
 DISTRIBUTED_STORAGE_PREFERENCE: 
