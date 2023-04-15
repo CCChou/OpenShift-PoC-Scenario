@@ -40,6 +40,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: minio-volume
+  namespace: minio-dev
 spec:
   accessModes:
     - ReadWriteOnce
