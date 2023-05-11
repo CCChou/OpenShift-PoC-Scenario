@@ -1,0 +1,23 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: local
+spec:
+  clusterConditions:
+    - type: ManagedClusterConditionAvailable
+      status: "True"
+  clusterNames:
+  - "local-cluster"
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: local-binding
+placementRef:
+  name: local
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+- name: lokistack
+  apiGroup: policy.open-cluster-management.io
+  kind: Policy
