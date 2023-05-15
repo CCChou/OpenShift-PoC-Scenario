@@ -6,6 +6,11 @@
 
 ## 環境部署與展示
 
+建立 Placement
+```
+oc apply -f yaml/placement.yaml
+```
+
 建立 Policy
 ```
 oc apply -f yaml/lokistack-full.yaml
