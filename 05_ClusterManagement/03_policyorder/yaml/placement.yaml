@@ -12,12 +12,38 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: local-binding
+  name: lokistack-full-policy-binding
 placementRef:
   name: local
   apiGroup: apps.open-cluster-management.io
   kind: PlacementRule
 subjects:
   - name: lokistack-full-policy
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: minio-dev-policy-binding
+placementRef:
+  name: local
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: minio-dev-policy
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: lokistack-policy-binding
+placementRef:
+  name: local
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: lokistack-policy
     apiGroup: policy.open-cluster-management.io
     kind: Policy
