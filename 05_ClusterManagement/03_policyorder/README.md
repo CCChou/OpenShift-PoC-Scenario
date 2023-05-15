@@ -8,7 +8,7 @@
 
 建立 Policy
 ```
-oc apply -f yaml/lokistack.yaml
+oc apply -f yaml/lokistack-full.yaml
 ```
 
 於 Web Console 上進入 minio-dev project 並找到 Route 登入 minio，接著手動建立 bucket 與對應的使用者。  

@@ -1,0 +1,117 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: minio-dev-policy
+  namespace: default
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: minio-dev-ns
+        spec:
+          remediationAction: enforce
+          severity: low
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: minio-dev
+    - extraDependencies:
+        - apiVersion: policy.open-cluster-management.io/v1
+          kind: ConfigurationPolicy
+          name: minio-dev-ns
+          namespace: ""
+          compliance: Compliant
+      objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: minio-dev
+        spec:
+          remediationAction: enforce
+          severity: low
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: apps/v1
+                kind: Deployment
+                metadata:
+                  name: minio
+                  namespace: minio-dev
+                spec:
+                  selector:
+                    matchLabels:
+                      app: minio
+                  replicas: 1
+                  template:
+                    metadata:
+                      labels:
+                        app: minio
+                    spec:
+                      containers:
+                        - name: minio
+                          image: quay.io/minio/minio:latest
+                          command:
+                            - /bin/bash
+                            - -c
+                          args:
+                            - minio server /data --console-address :9090
+                          volumeMounts:
+                            - mountPath: /data
+                              name: minio-volume # Corresponds to the `spec.volumes` Persistent Volume
+                      volumes:
+                        - name: minio-volume
+                          persistentVolumeClaim:
+                            claimName: minio-volume
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: PersistentVolumeClaim
+                metadata:
+                  name: minio-volume
+                  namespace: minio-dev
+                spec:
+                  accessModes:
+                    - ReadWriteOnce
+                  resources:
+                    requests:
+                      storage: 10Gi
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Service
+                metadata:
+                  name: minio-svc
+                  namespace: minio-dev
+                spec:
+                  selector:
+                    app: minio
+                  ports:
+                    - name: 9090-tcp
+                      protocol: TCP
+                      port: 9090
+                      targetPort: 9090
+                    - name: 9000-tcp
+                      protocol: TCP
+                      port: 9000
+                      targetPort: 9000
+            - complianceType: musthave
+              objectDefinition:
+                kind: Route
+                apiVersion: route.openshift.io/v1
+                metadata:
+                  name: minio
+                  namespace: minio-dev
+                  labels:
+                    app: minio
+                spec:
+                  to:
+                    kind: Service
+                    name: minio-svc
+                  port:
+                    targetPort: 9090
