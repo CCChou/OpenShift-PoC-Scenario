@@ -1,0 +1,51 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: gradle
+spec:
+  description: >-
+    This Task can be used to run a Gradle build.
+  workspaces:
+    - name: source
+      description: The workspace consisting of the gradle project.
+    - name: gradle-config
+      description: The workspace consisting of the custom gradle properties provided by the user.
+      optional: true
+  params:
+    - name: GRADLE_IMAGE
+      description: Gradle base image.
+      type: string
+      default: registry.access.redhat.com/ubi8/openjdk-11:1.15-1.1679485219
+    - name: PROJECT_DIR
+      description: The directory containing build.gradle
+      type: string
+      default: "."
+    - name: TASKS
+      description: 'The gradle tasks to run (default: build)'
+      type: array
+      default:
+        - build
+  steps:
+    - name: gradle-tasks
+      image: $(params.GRADLE_IMAGE)
+      env:
+        - name: GRADLE_USER_HOME
+          value: "/home/gradle"
+      workingDir: $(workspaces.source.path)/$(params.PROJECT_DIR)
+      args:
+        - "$(params.TASKS)"
+      script: |
+        #!/usr/bin/env bash
+
+        cmd="./gradlew $*"
+        echo "Running gradle task with command below"
+        echo "$cmd"
+        eval "$cmd"
+
+      volumeMounts:
+        - mountPath: /home/gradle
+          name: gradle-cache
+  volumes:
+    - name: gradle-cache
+      persistentVolumeClaim:
+        claimName: gradle-cache-pvc

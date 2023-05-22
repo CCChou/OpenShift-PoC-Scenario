@@ -1,0 +1,70 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-and-deploy-quarkus-application
+spec:
+  params:
+  - name: SOURCE_GIT_URL
+    type: string
+    description: The application git repository url
+  - name: SOURCE_GIT_REVISION
+    type: string
+    description: The application git repository revision
+  - name: image
+    type: string
+  - name: dockerfile
+    type: string
+
+  workspaces:
+  - name: app-source
+
+  tasks:
+  - name: git-clone
+    taskRef:
+      kind: ClusterTask
+      name: git-clone
+    params:
+    - name: url
+      value: $(params.SOURCE_GIT_URL)
+    - name: revision
+      value: $(params.SOURCE_GIT_REVISION)
+    - name: deleteExisting
+      value: 'true'
+    workspaces:
+    - name: output
+      workspace: app-source
+
+  - name: generate-tag
+    taskRef:
+      kind: Task
+      name: generate-tag
+  
+  - name: gradle
+    runAfter:
+    - git-clone
+    - generate-tag
+    taskRef:
+      name: gradle
+    params:
+    - name: TASKS
+      value: ["build", "-x", "test"]
+    workspaces:
+    - name: source
+      workspace: app-source
+
+  - name: build-image
+    runAfter:
+    - gradle
+    taskRef:
+      name: buildah
+      kind: ClusterTask
+    params:
+    - name: TLSVERIFY
+      value: "false"
+    - name: IMAGE
+      value: $(params.image):$(tasks.generate-tag.results.image-tag)
+    - name: DOCKERFILE
+      value: $(params.dockerfile)
+    workspaces:
+    - name: source
+      workspace: app-source
