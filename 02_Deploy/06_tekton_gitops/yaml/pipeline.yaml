@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: build-and-deploy-quarkus-application
+  name: build-and-deploy-caj-fare
 spec:
   params:
   - name: SOURCE_GIT_URL
@@ -10,13 +10,14 @@ spec:
   - name: SOURCE_GIT_REVISION
     type: string
     description: The application git repository revision
-  - name: image
+  - name: DOCKERFILE
     type: string
-  - name: dockerfile
+  - name: IMAGE
     type: string
 
   workspaces:
   - name: app-source
+  - name: images-url
 
   tasks:
   - name: git-clone
@@ -62,9 +63,28 @@ spec:
     - name: TLSVERIFY
       value: "false"
     - name: IMAGE
-      value: $(params.image):$(tasks.generate-tag.results.image-tag)
+      value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/caj-fare:$(tasks.generate-tag.results.image-tag)
     - name: DOCKERFILE
-      value: $(params.dockerfile)
+      value: $(params.DOCKERFILE)
     workspaces:
     - name: source
       workspace: app-source
+
+  - name: publish-image
+    runAfter:
+    - build-image
+    taskRef:
+      name: skopeo-copy
+      kind: ClusterTask
+    params:
+    - name: srcImageURL
+      value: docker://image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/caj-fare:$(tasks.generate-tag.results.image-tag)
+    - name: destImageURL
+      value: docker://$(params.IMAGE):$(tasks.generate-tag.results.image-tag)
+    - name: srcTLSverify
+      value: "false"
+    - name: destTLSverify
+      value: "false"
+    workspaces:
+    - name: images-url
+      workspace: images-url
