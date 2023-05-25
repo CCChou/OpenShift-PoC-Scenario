@@ -1,10 +1,9 @@
-# Tekton GitOps
+# CICD with Tekton and Argo CD
 
 ## 環境
 OpenShift 4.12
 Pipeline 1.10.2
 GitOps 1.8.3
-<br/>
 
 ## 設定
 建立新專案
