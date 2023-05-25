@@ -1,0 +1,58 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: update-manifests
+spec:
+  workspaces:
+    - name: manifest
+
+  params:
+    - name: GIT_URL
+      type: string
+    - name: GIT_REVISION
+      type: string
+    - name: DEPLOYMENT_PATH
+      description: The path of the deployment 
+      type: string
+    - name: IMAGE
+      description: The image url
+      type: string
+    
+  steps:
+    - name: git-clone
+      image: cgr.dev/chainguard/git:root-2.39@sha256:7759f87050dd8bacabe61354d75ccd7f864d6b6f8ec42697db7159eccd491139
+      workingDir: $(workspaces.manifest.path)
+      script: |
+        #!/usr/bin/env sh
+
+        set -eu -o pipefail
+
+        if [ -d "$(workspaces.manifest.path)/repository" ] ; then
+          cd repository
+          git pull "$(params.GIT_URL)"
+        else
+          git clone "$(params.GIT_URL)" $(pwd)/repository
+          cd repository
+          git checkout "$(params.GIT_REVISION)"
+        fi
+
+    - name: udpate-deployment-image
+      image: quay.io/openshift/origin-cli:latest
+      command: ["/bin/bash", "-c"]
+      workingDir: $(workspaces.manifest.path)/repository
+      args:
+        - |-
+          sed -i "s|image:.*|image: '$(params.IMAGE)'|g" $(params.DEPLOYMENT_PATH)
+
+    - name: git-commit-and-push
+      image: cgr.dev/chainguard/git:root-2.39@sha256:7759f87050dd8bacabe61354d75ccd7f864d6b6f8ec42697db7159eccd491139
+      workingDir: $(workspaces.manifest.path)/repository
+      script: |
+        #!/usr/bin/env sh
+        set -e
+
+        git config --global user.email pipeline@test.com
+        git config --global user.name pipeline
+        git add .
+        git commit --allow-empty -m "[OpenShift Pipeline] Updating $(params.DEPLOYMENT_PATH) image to $(params.IMAGE)"
+        git push origin "$(params.GIT_REVISION)"

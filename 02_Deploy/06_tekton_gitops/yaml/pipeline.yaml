@@ -4,6 +4,8 @@ metadata:
   name: build-and-deploy-caj-fare
 spec:
   params:
+  - name: APP_NAME
+    type: string
   - name: SOURCE_GIT_URL
     type: string
     description: The application git repository url
@@ -14,10 +16,21 @@ spec:
     type: string
   - name: IMAGE
     type: string
+  - name: manifest-git-url
+    type: string
+    description: manifest git repo url
+  - name: manifest-git-revision
+    type: string
+    description: manifest git revision
+    default: main
+  - name: manifest-path
+    type: string
+    description: the path to deployment
 
   workspaces:
   - name: app-source
   - name: images-url
+  - name: app-manifest
 
   tasks:
   - name: git-clone
@@ -88,3 +101,23 @@ spec:
     workspaces:
     - name: images-url
       workspace: images-url
+  
+  - name: update-manifests
+    taskRef:
+      name: update-manifests
+    workspaces:
+    - name: manifest
+      workspace: app-manifest
+    params:
+    - name: GIT_URL
+      value: $(params.manifest-git-url)
+    - name: GIT_REVISION
+      value: $(params.manifest-git-revision)
+    - name: APP_NAME
+      value: $(params.APP_NAME)
+    - name: DEPLOYMENT_PATH
+      value: $(params.manifest-path)
+    - name: IMAGE
+      value: $(params.IMAGE):$(tasks.generate-tag.results.image-tag)
+    runAfter:
+    - publish-image
