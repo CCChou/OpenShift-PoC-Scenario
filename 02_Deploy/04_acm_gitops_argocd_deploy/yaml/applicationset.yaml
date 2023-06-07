@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nginx-sample
+  namespace: openshift-gitops
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        #name: local-cluster
+        requeueAfterSeconds: 30
+        labelSelector:
+          matchLabels:              # OPTIONAL
+            cluster.open-cluster-management.io/placement: local-cluster
+  template: 
+    # This is a template Argo CD Application, but with support for parameter substitution.
+    metadata:
+      name: 'nginx-{{name}}'
+    spec:
+      project: "default"
+      source:
+        repoURL: https://github.com/jnpacker/application-samples/
+        targetRevision: main
+        path: nginx
+      destination:
+        server: '{{server}}'
+        namespace: nginx-sample
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: false
+        syncOptions:
+          - CreateNamespace=true
+          - PrunePropagationPolicy=orphan
