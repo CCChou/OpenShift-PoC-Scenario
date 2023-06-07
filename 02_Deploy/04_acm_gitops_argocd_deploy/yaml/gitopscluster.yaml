@@ -29,11 +29,3 @@ metadata:
 spec:
   clusterSets:
   - all-clusters
-  predicates:
-  - requiredClusterSelector:
-      labelSelector:
-        matchExpressions:
-        - key: vendor
-          operator: "In"
-          values:
-          - OpenShift
