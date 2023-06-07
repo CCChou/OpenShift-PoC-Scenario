@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-logging
 stringData:
   access_key_id: loki
-  access_key_secret: r3dh4t1!
+  access_key_secret: openshift4!
   bucketnames: loki
   endpoint: http://minio-svc.minio-dev.svc:9000
   region: us-east-1
