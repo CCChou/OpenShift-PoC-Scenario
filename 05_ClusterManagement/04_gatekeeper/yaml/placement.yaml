@@ -1,0 +1,35 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-gatekeeper-allowedrepos-placement
+  namespace: open-cluster-management
+placementRef:
+  name: policy-gatekeeper-allowedrepos-placement
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: install-gatekeeper
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+  - name: policy-gatekeeper-allowedrepos
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+  - name: policy-gatekeeper-allowedrepos-template
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: policy-gatekeeper-allowedrepos-placement
+  namespace: open-cluster-management
+spec:
+  clusterConditions:
+    - status: "True"
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: vendor
+        operator: In
+        values:
+          - OpenShift
