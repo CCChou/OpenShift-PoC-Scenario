@@ -1,25 +1,24 @@
 apiVersion: apps.open-cluster-management.io/v1beta1
 kind: GitOpsCluster
 metadata:
-  name: argo-acm-clusters-1
+  name: demo-gitops-cluster
   namespace: openshift-gitops
 spec:
   argoServer:
-    cluster: gitops
+    cluster: local-cluster
     argoNamespace: openshift-gitops
   placementRef:
     kind: Placement
-    apiVersion: cluster.open-cluster-management.io/v1alpha1
-    name: local-cluster
-    namespace: openshift-gitops
+    apiVersion: cluster.open-cluster-management.io/v1beta1
+    name: demo-gitops-placement
 ---
-apiVersion: cluster.open-cluster-management.io/v1beta2
+apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: ManagedClusterSetBinding
 metadata:
-  name: all-clusters
+  name: demo-gitops
   namespace: openshift-gitops
 spec:
-  clusterSet: all-clusters
+  clusterSet: demo-gitops
 ---
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
@@ -28,4 +27,4 @@ metadata:
   namespace: openshift-gitops
 spec:
   clusterSets:
-  - all-clusters
+    - all-clusters
