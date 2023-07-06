@@ -1,4 +1,4 @@
-# ACM with gatekeeper 限制 image 來源
+# ACM with gatekeeper 檢查 Resource 限制設定
 
 ## 環境
 1. OpenShift 4.12

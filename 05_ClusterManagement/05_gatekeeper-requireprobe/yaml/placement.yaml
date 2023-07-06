@@ -1,0 +1,32 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-gatekeeper-requireprobe-placement
+  namespace: open-cluster-management
+placementRef:
+  name: policy-gatekeeper-requireprobe-placement
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: policy-gatekeeper-requireprobe
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+  - name: policy-gatekeeper-requireprobe-template
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: policy-gatekeeper-requireprobe-placement
+  namespace: open-cluster-management
+spec:
+  clusterConditions:
+    - status: "True"
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: vendor
+        operator: In
+        values:
+          - OpenShift

@@ -1,0 +1,71 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-gatekeeper-requireprobe
+  namespace: open-cluster-management
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-gatekeeper-requireprobe
+        spec:
+          remediationAction: enforce
+          severity: low
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: constraints.gatekeeper.sh/v1beta1
+                kind: K8sRequiredProbes
+                metadata:
+                  name: must-have-probes
+                spec:
+                  match:
+                    kinds:
+                      - apiGroups: [""]
+                        kinds: ["Pod"]
+                    namespaces:
+                      - default
+                  parameters:
+                    probes: ["readinessProbe", "livenessProbe"]
+                    probeTypes: ["tcpSocket", "httpGet", "exec"]
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-gatekeeper-audit-requireprobe
+        spec:
+          remediationAction: inform
+          severity: low
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: constraints.gatekeeper.sh/v1beta1
+                kind: K8sRequiredProbes
+                metadata:
+                  name: must-have-probes
+                status:
+                  totalViolations: 0
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-gatekeeper-admission-requireprobe
+        spec:
+          remediationAction: inform
+          severity: low
+          object-templates:
+            - complianceType: mustnothave
+              objectDefinition:
+                apiVersion: v1
+                kind: Event
+                metadata:
+                  namespace: openshift-gatekeeper-system
+                  annotations:
+                    constraint_action: deny
+                    constraint_kind: K8sRequiredProbes
+                    constraint_name: must-have-probes
+                    event_type: violation
