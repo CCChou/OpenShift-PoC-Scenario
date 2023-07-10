@@ -30,11 +30,11 @@ oc apply -f yaml/
 ```
 
 ## 情境展示
-設定好後會有一個完整的 pipeline  
+1. 設定好後會有一個完整的 pipeline  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/pipeline.png)
 
 
-選定 Start 並輸入參數後執行 pipeline 任務  
+2. 選定 Start 並輸入參數後執行 pipeline 任務  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/pipelinerun-1.png)
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/pipelinerun-2.png)
 > 1. **APP_NAME:** caj-fare
@@ -49,11 +49,11 @@ oc apply -f yaml/
 > 10. **images-url:** 選擇 Secret 並選擇 container-registry-secret
 > 11. **app-manifest:** 選擇 PersistentVolumeClaim 並選擇 manifest-pvc
 
-執行成功後可以觀察 registry 中上傳的 image 以及其 tag 名稱  
+3. 執行成功後可以觀察 registry 中上傳的 image 以及其 tag 名稱  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/quay.png)
 
-查看 manifest git repo 中的 deployment.yaml 的 image 欄位有更新與 registry 中一致  
+4. 查看 manifest git repo 中的 deployment.yaml 的 image 欄位有更新與 registry 中一致  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/deployment-1.png)
 
-最後檢查 project 下的 deployment 是否也更新為最新版本的 image  
+5. 最後檢查 project 下的 deployment 是否也更新為最新版本的 image  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/deployment-2.png)
