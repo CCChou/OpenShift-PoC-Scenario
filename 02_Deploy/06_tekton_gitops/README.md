@@ -37,17 +37,17 @@ oc apply -f yaml/
 選定 Start 並輸入參數後執行 pipeline 任務  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/pipelinerun-1.png)
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/pipelinerun-2.png)
-1. **APP_NAME:** caj-fare
-2. **SOURCE_GIT_URL:** https://github.com/CCChou/caj-fare.git
-3. **SOURCE_GIT_REVISION:** main
-4. **DOCKERFILE:** Dockerfile-openjdk
-5. **IMAGE:** quay.io/rhtw/caj-fare
-6. **manifest-git-url:** 'https://[personal_token]@github.com/CCChou/caj-fare-deploy.git'
-7. **manifest-git-revision:** main
-8. **manifest-path:** gitops/deployment.yaml
-9. **app-source:** 選擇 PersistentVolumeClaim 並選擇 caj-fare-pipeline-pvc
-10. **images-url:** 選擇 Secret 並選擇 container-registry-secret
-11. **app-manifest:** 選擇 PersistentVolumeClaim 並選擇 manifest-pvc
+> 1. **APP_NAME:** caj-fare
+> 2. **SOURCE_GIT_URL:** https://github.com/CCChou/caj-fare.git
+> 3. **SOURCE_GIT_REVISION:** main
+> 4. **DOCKERFILE:** Dockerfile-openjdk
+> 5. **IMAGE:** quay.io/rhtw/caj-fare
+> 6. **manifest-git-url:** 'https://[personal_token]@github.com/CCChou/caj-fare-deploy.git'
+> 7. **manifest-git-revision:** main
+> 8. **manifest-path:** gitops/deployment.yaml
+> 9. **app-source:** 選擇 PersistentVolumeClaim 並選擇 caj-fare-pipeline-pvc
+> 10. **images-url:** 選擇 Secret 並選擇 container-registry-secret
+> 11. **app-manifest:** 選擇 PersistentVolumeClaim 並選擇 manifest-pvc
 
 執行成功後可以觀察 registry 中上傳的 image 以及其 tag 名稱  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/quay.png)
