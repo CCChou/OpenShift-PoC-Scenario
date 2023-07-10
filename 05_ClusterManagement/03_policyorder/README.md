@@ -19,13 +19,13 @@ oc apply -f yaml/lokistack-full.yaml  -n default
 ```
 
 於 Web Console 上進入 minio-dev project 並找到 Route 使用預設帳密 (minioadmin/minioadmin) 登入 minio，接著手動建立 bucket 與對應的使用者。  
-1. 選擇 Bucket 
+1. 選擇 Bucket  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/03_policyorder/image/create_bucket_01.png)
-2. 建立 Bucket 
+2. 建立 Bucket  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/03_policyorder/image/create_bucket_02.png)
-3. 選擇 identity 
+3. 選擇 identity   
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/03_policyorder/image/create_admin_user_01.png)
-4. 建立 admin user (loki/openshift4!)
+4. 建立 admin user (loki/openshift4!)  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/03_policyorder/image/create_admin_user_02.png)
 
 手動建立 loki minio 連線資訊的 secret
