@@ -20,14 +20,14 @@ spec:
     
   steps:
     - name: git-clone
-      image: cgr.dev/chainguard/git:root-2.39@sha256:7759f87050dd8bacabe61354d75ccd7f864d6b6f8ec42697db7159eccd491139
+      image: cgr.dev/chainguard/git:root-2.39
       workingDir: $(workspaces.manifest.path)
       script: |
         #!/usr/bin/env sh
 
         set -eu -o pipefail
 
-        if [ -d "$(workspaces.manifest.path)/repository" ] ; then
+        if [ "$(ls -A $(workspaces.manifest.path)/repository)" ] ; then
           cd repository
           git pull "$(params.GIT_URL)"
         else
@@ -45,7 +45,7 @@ spec:
           sed -i "s|image:.*|image: '$(params.IMAGE)'|g" $(params.DEPLOYMENT_PATH)
 
     - name: git-commit-and-push
-      image: cgr.dev/chainguard/git:root-2.39@sha256:7759f87050dd8bacabe61354d75ccd7f864d6b6f8ec42697db7159eccd491139
+      image: cgr.dev/chainguard/git:root-2.39
       workingDir: $(workspaces.manifest.path)/repository
       script: |
         #!/usr/bin/env sh

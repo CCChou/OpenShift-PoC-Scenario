@@ -12,6 +12,7 @@ spec:
   - name: SOURCE_GIT_REVISION
     type: string
     description: The application git repository revision
+    default: main
   - name: DOCKERFILE
     type: string
   - name: IMAGE
