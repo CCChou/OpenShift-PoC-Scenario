@@ -7,8 +7,6 @@
 
 ## 設定
 
-先安裝 Pipeline 和 GitOps Operator
-
 建立新專案
 ```
 oc new-project caj-fare
