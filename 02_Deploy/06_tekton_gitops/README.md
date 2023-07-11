@@ -40,7 +40,7 @@ oc apply -f yaml/
 > 3. **SOURCE_GIT_REVISION:** main
 > 4. **DOCKERFILE:** Dockerfile-openjdk
 > 5. **IMAGE:** quay.io/rhtw/caj-fare
-> 6. **manifest-git-url:** 'https://[personal_token]@github.com/CCChou/caj-fare-deploy.git'
+> 6. **manifest-git-url:** 'https://[user_name]:[user_token]@github.com/CCChou/caj-fare-deploy.git'
 > 7. **manifest-git-revision:** main
 > 8. **manifest-path:** gitops/deployment.yaml
 > 9. **app-source:** 選擇 PersistentVolumeClaim 並選擇 caj-fare-pipeline-pvc
