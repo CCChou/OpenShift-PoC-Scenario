@@ -1,0 +1,142 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-and-deploy
+spec:
+  workspaces:
+  - name: shared-workspace
+  - name: images-url
+  params:
+  - name: deployment-name
+    type: string
+    description: name of the deployment to be patched
+  - name: git-url
+    type: string
+    description: url of the git repo for the code of deployment
+  - name: git-revision
+    type: string
+    description: revision to be used from repo of the code for deployment
+    default: "master"
+  - name: IMAGE
+    type: string
+    description: image to be build from the code
+  tasks:
+  - name: fetch-repository
+    taskRef:
+      name: git-clone
+      kind: ClusterTask
+    workspaces:
+    - name: output
+      workspace: shared-workspace
+    params:
+    - name: url
+      value: $(params.git-url)
+    - name: subdirectory
+      value: ""
+    - name: deleteExisting
+      value: "true"
+    - name: revision
+      value: $(params.git-revision)
+  - name: build-image
+    taskRef:
+      name: buildah
+      kind: ClusterTask
+    params:
+    - name: TLSVERIFY
+      value: "false"
+    - name: IMAGE
+      value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/vote-api
+    workspaces:
+    - name: source
+      workspace: shared-workspace
+    runAfter:
+    - fetch-repository
+
+  - name: publish-image
+    runAfter:
+    - build-image
+    taskRef:
+      name: skopeo-copy
+      kind: ClusterTask
+    params:
+    - name: srcImageURL
+      value: docker://image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/vote-api
+    - name: destImageURL
+      value: docker://$(params.IMAGE)
+    - name: srcTLSverify
+      value: "false"
+    - name: destTLSverify
+      value: "false"
+    workspaces:
+    - name: images-url
+      workspace: images-url
+  
+  - name: image-check
+    taskRef:
+      name: rox-image-check
+      kind: ClusterTask
+    params:
+    - name: rox_central_endpoint
+      value: roxsecret
+    - name: rox_api_token
+      value: roxsecret
+    - name: image
+      value: $(params.IMAGE)
+    - name: image_digest
+      value: $(tasks.build-image.results.IMAGE_DIGEST)
+    runAfter:
+    - publish-image
+
+  - name: image-scan
+    taskRef:
+      name: rox-image-scan
+      kind: ClusterTask
+    params:
+    - name: rox_central_endpoint
+      value: roxsecret
+    - name: rox_api_token
+      value: roxsecret
+    - name: image
+      value: $(params.IMAGE)
+    - name: image_digest
+      value: $(tasks.build-image.results.IMAGE_DIGEST)
+    runAfter:
+    - publish-image
+
+  - name: deployment-scan
+    taskRef:
+      name: rox-deployment-check
+      kind: ClusterTask
+    params:
+    - name: rox_central_endpoint
+      value: roxsecret
+    - name: rox_api_token
+      value: roxsecret
+    - name: file
+      value: "deployment.yaml"
+    - name: deployment_files_path
+      value: "k8s"
+    runAfter:
+    - image-check
+    workspaces:
+    - name: workspace
+      workspace: shared-workspace
+
+  - name: apply-manifests
+    taskRef:
+      name: apply-manifests
+    workspaces:
+    - name: source
+      workspace: shared-workspace
+    runAfter:
+    - deployment-scan
+  - name: update-deployment
+    taskRef:
+      name: update-deployment
+    params:
+    - name: deployment
+      value: $(params.deployment-name)
+    - name: IMAGE
+      value: $(params.IMAGE)
+    runAfter:
+    - apply-manifests
