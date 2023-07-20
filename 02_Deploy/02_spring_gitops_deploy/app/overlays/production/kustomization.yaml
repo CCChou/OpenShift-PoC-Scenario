@@ -5,6 +5,6 @@ namePrefix: production-
 commonLabels:
   vatriant: production
 
-patchesStrategicMerge:
-  - cpu_count.yaml
-  - replicas_count.yaml
+patches:
+  - path: cpu_count.yaml
+  - path: replicas_count.yaml
