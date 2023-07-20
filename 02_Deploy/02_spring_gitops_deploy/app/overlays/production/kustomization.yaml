@@ -1,0 +1,10 @@
+bases:
+  - ../../base
+
+namePrefix: production-
+commonLabels:
+  vatriant: production
+
+patchesStrategicMerge:
+  - cpu_count.yaml
+  - replicas_count.yaml
