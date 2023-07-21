@@ -5,5 +5,5 @@ namePrefix: test-
 commonLabels:
   vatriant: test
 
-patches:
-  - path: cpu_count.yaml
+patchesStrategicMerge:
+  - cpu_count.yaml
