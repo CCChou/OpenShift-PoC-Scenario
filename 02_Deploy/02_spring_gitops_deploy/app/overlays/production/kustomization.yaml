@@ -3,7 +3,7 @@ bases:
 
 namePrefix: production-
 commonLabels:
-  vatriant: production
+  env: production
 
 patches:
   - path: cpu_count.yaml

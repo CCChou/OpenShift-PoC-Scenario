@@ -3,7 +3,7 @@ bases:
 
 namePrefix: test-
 commonLabels:
-  variant: test
+  env: test
 
 patchesStrategicMerge:
   - cpu_count.yaml
