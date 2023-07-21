@@ -6,5 +6,4 @@ commonLabels:
   env: production
 
 patches:
-  - path: cpu_count.yaml
-  - path: replicas_count.yaml
+  - path: cpu_and_replicas_count.yaml
