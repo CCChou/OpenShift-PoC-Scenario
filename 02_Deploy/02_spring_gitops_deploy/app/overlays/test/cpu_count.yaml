@@ -9,4 +9,4 @@ spec:
         - name: spring-petclinic
           resources:
             limits:
-              cpu: 5000m
+              cpu: 2000m
