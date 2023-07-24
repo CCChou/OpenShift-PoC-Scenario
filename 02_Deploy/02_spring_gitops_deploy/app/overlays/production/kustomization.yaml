@@ -1,6 +1,9 @@
 bases:
   - ../../base
 
+resources:
+  - pbd.yaml
+
 namePrefix: production-
 commonLabels:
   env: production
