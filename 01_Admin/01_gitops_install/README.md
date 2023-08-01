@@ -1,7 +1,8 @@
 # GitOps 維運管理
 
 ## 環境
-1. OpenShift 4.10
+1. OpenShift version 4.12
+2. OpenShift GitOps version 1.9
 
 ## 安裝
 

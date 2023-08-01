@@ -1,7 +1,7 @@
 # Jboss EAP on OpenShift s2i template deployment
 
 ## 環境資訊
-  * OpenShift version 4.10
+  * OpenShift version 4.12
   * Jboss EAP version 7.4
   * OpenJDK version 11
 

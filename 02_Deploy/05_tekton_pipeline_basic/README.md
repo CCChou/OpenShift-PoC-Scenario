@@ -1,6 +1,7 @@
 # 環境資訊
 
-1. OpenShift 4.12
+1. OpenShift version 4.12
+2. OpenShift pipeline version 1.10
 
 # 前置作業
 
@@ -28,5 +29,5 @@ oc apply -f yaml/basic_pipeline_all.yaml
 ```
 tkn pipeline start build-and-deploy -w name=shared-workspace,claimName=source-pvc -p deployment-name=pipelines-vote-api -p git-url=https://github.com/openshift/pipelines-vote-api.git -p IMAGE=image-registry.openshift-image-registry.svc:5000/pipeline-demo/vote-api --showlog
 
-tkn pipeline start build-and-deploy -w name=shared-workspace,claimName=source-pvc -p deployment-name=pipelines-vote-api -p git-url=https://github.com/openshift/pipelines-vote-api.git -p IMAGE=image-registry.openshift-image-registry.svc:5000/opentlc-mgr/vote-api --showlog
+tkn pipeline start build-and-deploy -w name=shared-workspace,claimName=source-pvc -p deployment-name=pipelines-vote-api -p git-url=https://github.com/openshift/pipelines-vote-ui.git -p IMAGE=image-registry.openshift-image-registry.svc:5000/pipeline-demo/vote-ui --showlog
 ```
