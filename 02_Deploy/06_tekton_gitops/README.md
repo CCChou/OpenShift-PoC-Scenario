@@ -5,6 +5,9 @@
 2. Pipeline 1.10.2
 3. GitOps 1.8.3
 
+流程說明：
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/pipeline_flow_introduction.png)
+
 ## 設定
 
 建立新專案
