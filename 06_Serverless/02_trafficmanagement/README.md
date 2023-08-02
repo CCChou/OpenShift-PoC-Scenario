@@ -1,11 +1,16 @@
 # Serverless 流量管理
 
 ## 環境資訊
-1. OpenShift 4.10
-2. Serverless 1.26
+1. OpenShift 4.12
+2. Serverless 1.29
 3. kn v1.5.0
 
-## 部署
+## 使用指引
+
+透過以下腳本建立 project 並設定權限
+```
+sh script/setup.sh
+```
 
 部署 blue 服務
 ```
