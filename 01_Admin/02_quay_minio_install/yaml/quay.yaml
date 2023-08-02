@@ -1,0 +1,10 @@
+apiVersion: quay.redhat.com/v1
+kind: QuayRegistry
+metadata:
+  name: image-registry
+  namespace: quay-enterprise
+spec:
+  configBundleSecret: config-bundle-secret
+  components:
+    - kind: objectstorage
+      managed: false

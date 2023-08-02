@@ -2,6 +2,10 @@
 
 使用 MinIO 作為 Object Storage 來安裝 Quay
 
+## 環境資訊
+1. OpenShift 4.12
+2. Quay Operator 3.8
+
 ## Install MinIO
 
 Apply minio yaml
@@ -9,44 +13,23 @@ Apply minio yaml
 oc apply -f yaml/minio-dev.yaml
 ```
 
-接著便可以透過 Route 登入 MinIO 介面進行設定，預設 root 帳密為 minioadmin / minioadmin。
+以上指令會建立 minio-dev project 並部署測試用 MinIO，部署完畢後可以透過 Route 登入 MinIO 介面進行設定，預設 root 帳密為 minioadmin / minioadmin。  
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/01_Admin/02_quay_minio_install/img/01.png)  
+
+建立 quay bucket  
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/01_Admin/02_quay_minio_install/img/02.png)  
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/01_Admin/02_quay_minio_install/img/03.png)  
+
+建立 minio 使用者 quay 密碼使用 openshift4!，權限則給定 RedWrite 即可
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/01_Admin/02_quay_minio_install/img/04.png)  
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/01_Admin/02_quay_minio_install/img/05.png)  
 
 ## Install Quay
 
-安裝 Quay Operator
-... pic ...
-
-根據 config.yaml 建立 secret 
+從 OperatorHub 安裝 Red Hat Quay Operator，並使用以下 script 建立 Quay Registry
 ```
-oc create secret generic -n quay-enterprise --from-file config.yaml=./config.yaml init-config-bundle-secret
-```
-
-```
-DISTRIBUTED_STORAGE_CONFIG: 
-  default: 
-    - RadosGWStorage 
-    - access_key: access_key_here 
-      secret_key: secret_key_here 
-      bucket_name: bucket_name_here 
-      hostname: hostname_here 
-      is_secure: true
-      port: 9000
-      storage_path: /datastorage/registry 
-DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS: [] 
-DISTRIBUTED_STORAGE_PREFERENCE: 
-    - default
-```
-
-建立 QuayRegistry CR
-```
-
-```
-
-取得
-
-Push image 驗證 quay 功能是否正常
-```
-
+sh script/setup.sh
 ```
 
 ## Quay 維運管理
+TODO
