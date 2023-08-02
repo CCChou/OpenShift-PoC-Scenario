@@ -15,7 +15,7 @@ sh script/setup.sh
 oc apply -f yaml/nginx-disallowed.yaml
 ```
 
-可以發現會被阻擋，因此無法正常部署
+可以發現因為不符合 policy 導致部署失敗
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/04_gatekeeper_allowrepos/img/01.png)  
 
 回到 ACM 介面，可以發現其中檢查用的 Policy 也同時變成 violation 狀態
