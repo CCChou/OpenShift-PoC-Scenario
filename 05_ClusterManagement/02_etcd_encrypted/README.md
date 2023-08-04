@@ -12,8 +12,8 @@ oc apply -f yaml/placement.yaml
 ```
 
 檢查 Policy 結果  
-![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/02_etcd_encrypted/image/01.png)
-![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/02_etcd_encrypted/image/02.png)
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/02_etcd_encrypted/img/01.png)
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/02_etcd_encrypted/img/02.png)
 
 Apply Remediation 為 enforce 的 policy
 ```
@@ -21,4 +21,4 @@ oc apply -f yaml/policy-enforce.yaml
 ```
 
 查看狀態，可以發現問題已自動修復  
-![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/02_etcd_encrypted/image/03.png)
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/05_ClusterManagement/02_etcd_encrypted/img/03.png)
