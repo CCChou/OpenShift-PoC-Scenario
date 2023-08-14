@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: hpa-test
-          image: k8s.gcr.io/ubuntu-slim:0.1
+          image: quay.io/rhtw/sysbench:v1.0.0
           resources:
             requests:
               cpu: 100m
@@ -24,4 +24,4 @@ spec:
           command: ["/bin/sh"]
           args:
             - "-c"
-            - "while true; do timeout 0.5s yes > /dev/null; sleep 0.5s; done"
+            - "while true; do sleep 30s; done"
