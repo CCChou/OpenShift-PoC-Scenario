@@ -4,6 +4,9 @@
 1. OpenShift 4.12
 2. ACS 4.1
 
+流程說明：
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/08_Security/02_devsecops/image/devsecops_flow_introduction.png)
+
 ## 使用指引
 建立新 project
 ```
