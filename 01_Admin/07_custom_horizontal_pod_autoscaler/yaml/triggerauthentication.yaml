@@ -5,8 +5,8 @@ metadata:
 spec:
   secretTargetRef:
     - parameter: bearerToken
-      name: thanos-token-trd98
+      name: thanos-token-kzkbw
       key: token
     - parameter: ca
-      name: thanos-token-trd98
+      name: thanos-token-kzkbw
       key: ca.crt

@@ -10,4 +10,4 @@ spec:
   namespaceSelector: {}
   selector:
     matchLabels:
-      app: keda-prom--app
+      app: keda-prom-app

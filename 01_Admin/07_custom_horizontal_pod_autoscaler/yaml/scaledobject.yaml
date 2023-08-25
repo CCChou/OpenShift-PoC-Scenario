@@ -16,7 +16,7 @@ spec:
         namespace: keda-demo
         metricName: http_requests_total
         threshold: "5"
-        query: sum(rate(http_requests_total{job="test-app"}[1m]))
+        query: sum(rate(http_requests_total{job="keda-prom-app"}[1m]))
         authModes: "bearer"
       authenticationRef:
         name: keda-trigger-auth-prometheus
