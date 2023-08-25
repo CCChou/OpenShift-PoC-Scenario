@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: generate-requests-
+spec:
+  template:
+    spec:
+      containers:
+        - image: quay.io/zroubalik/hey
+          name: test
+          command: ["/bin/sh"]
+          args:
+            [
+              "-c",
+              "for i in $(seq 1 30);do echo $i;/hey -c 5 -n 100 http://keda-prom-app.keda-demo.svc.cluster.local;sleep 1;done",
+            ]
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+      restartPolicy: Never
+  activeDeadlineSeconds: 120
+  backoffLimit: 2

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: keda-prom-app
+  name: keda-prom-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keda-prom-app
+  template:
+    metadata:
+      labels:
+        app: keda-prom-app
+        type: keda-testing
+    spec:
+      containers:
+        - name: prom-test-app
+          image: quay.io/zroubalik/prometheus-app:latest
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
