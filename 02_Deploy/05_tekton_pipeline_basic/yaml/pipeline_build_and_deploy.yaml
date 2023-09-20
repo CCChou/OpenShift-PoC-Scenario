@@ -22,8 +22,14 @@ spec:
   tasks:
   - name: fetch-repository
     taskRef:
-      name: git-clone
-      kind: ClusterTask
+      resolver: hub
+      params:
+      - name: kind
+        value: task
+      - name: name
+        value: git-clone
+      - name: version
+        value: "0.9"
     workspaces:
     - name: output
       workspace: shared-workspace
@@ -39,7 +45,6 @@ spec:
   - name: build-image
     taskRef:
       name: buildah
-      kind: ClusterTask
     params:
     - name: TLSVERIFY
       value: "false"
@@ -61,9 +66,6 @@ spec:
   - name: update-deployment
     taskRef:
       name: update-deployment
-    workspaces:
-    - name: source
-      workspace: shared-workspace
     params:
     - name: deployment
       value: $(params.deployment-name)
