@@ -1,0 +1,1 @@
+watch oc get hpa\; oc get po\;\ oc get podmetrics

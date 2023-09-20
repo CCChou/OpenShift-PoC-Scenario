@@ -29,6 +29,9 @@ sh script/getpwd.sh
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/08_Security/01_acs_setup/img/04.png)  
 
 Apply 下載好的 secret
+```
+oc apply -f local-cluster-init-secrets.yaml -n stackrox
+```
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/08_Security/01_acs_setup/img/05.png)  
 
 建立 Secured Cluster 物件  
