@@ -22,14 +22,14 @@ spec:
   tasks:
   - name: fetch-repository
     taskRef:
-      resolver: hub
+      resolver: git
       params:
-      - name: kind
-        value: task
-      - name: name
-        value: git-clone
-      - name: version
-        value: "0.9"
+      - name: url
+        value: https://github.com/tektoncd/catalog.git
+      - name: revision
+        value: main
+      - name: pathInRepo
+        value: task/git-clone/0.9/git-clone.yaml 
     workspaces:
     - name: output
       workspace: shared-workspace
