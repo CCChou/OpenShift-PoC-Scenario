@@ -20,6 +20,11 @@ oc new-project caj-fare
 sh scripts/createcred.sh [registry_url] [username] [password]
 ```
 
+設定 git credentials
+```
+oc create secret generic git-cred --from-file=id_rsa=[ssh_private_file_path]
+```
+
 設定 ArgoCD controller 權限
 ```
 oc adm policy add-role-to-user admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller -n caj-fare
@@ -49,6 +54,7 @@ oc apply -f yaml/
 > 9. **app-source:** 選擇 PersistentVolumeClaim 並選擇 caj-fare-pipeline-pvc
 > 10. **images-url:** 選擇 Secret 並選擇 container-registry-secret
 > 11. **app-manifest:** 選擇 PersistentVolumeClaim 並選擇 manifest-pvc
+> 12. **app-manifest:** 選擇 Secret 並選擇 git-cred
 
 3. 執行成功後可以觀察 registry 中上傳的 image 以及其 tag 名稱  
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/quay.png)

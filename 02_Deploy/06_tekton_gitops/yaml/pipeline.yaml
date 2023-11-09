@@ -32,6 +32,7 @@ spec:
   - name: app-source
   - name: images-url
   - name: app-manifest
+  - name: git-cred
 
   tasks:
   - name: git-clone
@@ -109,6 +110,8 @@ spec:
     workspaces:
     - name: manifest
       workspace: app-manifest
+    - name: ssh-directory
+      workspace: git-cred
     params:
     - name: GIT_URL
       value: $(params.manifest-git-url)
