@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bgd-production
+spec:
+  destination:
+    name: ""
+    namespace: demo-gitops-production
+    server: "https://kubernetes.default.svc"
+  source:
+    path: 02_Deploy/02_argocd_gitops_deploy/app/overlays/production
+    repoURL: "https://github.com/CCChou/OpenShift-PoC-Scenario.git"
+    targetRevision: HEAD
+  sources: []
+  project: default
