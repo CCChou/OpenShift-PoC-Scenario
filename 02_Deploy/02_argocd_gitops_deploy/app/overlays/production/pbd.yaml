@@ -1,9 +1,9 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: spring-petclinic-pbd
+  name: bgd-pbd
 spec:
   minAvailable: 2
   selector:
     matchLabels:
-      app: spring-petclinic
+      app: bgd

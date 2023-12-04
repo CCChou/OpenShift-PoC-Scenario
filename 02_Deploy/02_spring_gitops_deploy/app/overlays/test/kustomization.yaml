@@ -1,9 +1,0 @@
-bases:
-  - ../../base
-
-namePrefix: test-
-commonLabels:
-  env: test
-
-patchesStrategicMerge:
-  - cpu_count.yaml

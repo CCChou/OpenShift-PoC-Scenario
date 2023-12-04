@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bgd-blue
+  name: bgd-blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bgd-blue
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: bgd-blue
+    spec:
+      containers:
+        - image: quay.io/rhdevelopers/bgd:1.0.0
+          name: bgd-blue
+          env:
+            - name: COLOR
+              value: "blue"
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault

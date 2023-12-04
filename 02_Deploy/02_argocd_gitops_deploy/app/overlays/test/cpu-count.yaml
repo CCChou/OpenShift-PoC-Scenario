@@ -1,13 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-petclinic
+  name: bgd
 spec:
-  replicas: 3
   template:
     spec:
       containers:
-        - name: spring-petclinic
+        - name: bgd
+          env:
+            - name: COLOR
+              value: "white"
           resources:
             limits:
-              cpu: 4000m
+              cpu: 2000m

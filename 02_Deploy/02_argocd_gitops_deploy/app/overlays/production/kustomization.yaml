@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../bgd-base
+  - pdb.yaml
+commonLabels:
+  env: production
+patches:
+  - path: use-configmap.yaml
+configMapGenerator:
+  - name: some-config
+    literals:
+      - config.prod="This is a Production App"

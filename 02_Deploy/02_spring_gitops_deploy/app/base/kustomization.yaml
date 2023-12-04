@@ -1,8 +1,0 @@
-resources:
-  - deployment.yaml
-  - service.yaml
-  - route.yaml
-
-namePrefix: dev-
-commonLabels:
-  app: spring-petclinic
