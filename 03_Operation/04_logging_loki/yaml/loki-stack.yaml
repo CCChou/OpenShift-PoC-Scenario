@@ -24,6 +24,6 @@ spec:
     secret:
       name: logging-loki-s3
       type: s3
-  storageClassName: gp2-csi
+  storageClassName: ocs-external-storagecluster-ceph-rbd 
   tenants:
     mode: openshift-logging
