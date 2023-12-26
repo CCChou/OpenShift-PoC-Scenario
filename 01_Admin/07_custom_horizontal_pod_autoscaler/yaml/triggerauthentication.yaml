@@ -2,11 +2,12 @@ apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
   name: keda-trigger-auth-prometheus
+  namespace: keda-demo
 spec:
   secretTargetRef:
     - parameter: bearerToken
-      name: thanos-token-kzkbw
+      name: thanos
       key: token
     - parameter: ca
-      name: thanos-token-kzkbw
+      name: thanos
       key: ca.crt

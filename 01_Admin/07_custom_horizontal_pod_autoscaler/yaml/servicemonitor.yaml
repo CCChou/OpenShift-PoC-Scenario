@@ -3,6 +3,7 @@ kind: ServiceMonitor
 metadata:
   labels:
   name: keda-testing-sm
+  namespace: keda-demo
 spec:
   endpoints:
     - scheme: http

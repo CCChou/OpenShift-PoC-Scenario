@@ -2,6 +2,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: prometheus-scaledobject
+  namespace: keda-demo
 spec:
   scaleTargetRef:
     name: keda-prom-app
