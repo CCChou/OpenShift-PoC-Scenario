@@ -1,9 +1,8 @@
 #!/bin/bash
 
-LOCAL_API_SERVER_URL=`oc config view --minify -o jsonpath='{.clusters[*].cluster.server}'`
-LOCAL_API_SERVER_TOKEN=`oc whoami -t`
+oc apply -f ./yaml/managedclusterset.yaml;
 
-function openshiftlogin(){
-	oc login -u $1 -p $2 --server=$3
-}
-
+oc label managedcluster remote-ocp cluster.open-cluster-management.io/clusterset=demo-gitops;
+oc label managedcluster local-cluster cluster.open-cluster-management.io/clusterset=demo-gitops;
+oc label managedcluster local-cluster environment=production;
+oc label managedcluster remote-ocp environment=cloud;

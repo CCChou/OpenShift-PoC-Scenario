@@ -11,20 +11,3 @@ spec:
     kind: Placement
     apiVersion: cluster.open-cluster-management.io/v1beta1
     name: demo-gitops-placement
----
-apiVersion: cluster.open-cluster-management.io/v1beta1
-kind: ManagedClusterSetBinding
-metadata:
-  name: demo-gitops
-  namespace: openshift-gitops
-spec:
-  clusterSet: demo-gitops
----
-apiVersion: cluster.open-cluster-management.io/v1beta1
-kind: Placement
-metadata:
-  name: local-cluster
-  namespace: openshift-gitops
-spec:
-  clusterSets:
-    - all-clusters

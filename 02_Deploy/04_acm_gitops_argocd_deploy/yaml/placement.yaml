@@ -10,8 +10,8 @@ spec:
     - requiredClusterSelector:
         labelSelector:
           matchExpressions:
-            - key: env
+            - key: environment
               operator: In
               values:
-                - test
-                - prod
+                - cloud
+                - production

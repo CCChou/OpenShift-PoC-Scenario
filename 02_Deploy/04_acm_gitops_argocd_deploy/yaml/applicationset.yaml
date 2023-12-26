@@ -10,12 +10,12 @@ spec:
         #name: local-cluster
         requeueAfterSeconds: 30
         labelSelector:
-          matchLabels:              # OPTIONAL
-            cluster.open-cluster-management.io/placement: local-cluster
-  template: 
+          matchLabels: # OPTIONAL
+            cluster.open-cluster-management.io/placement: demo-gitops-placement
+  template:
     # This is a template Argo CD Application, but with support for parameter substitution.
     metadata:
-      name: 'nginx-{{name}}'
+      name: "nginx-{{name}}"
     spec:
       project: "default"
       source:
@@ -23,7 +23,7 @@ spec:
         targetRevision: main
         path: nginx
       destination:
-        server: '{{server}}'
+        server: "{{server}}"
         namespace: nginx-sample
       syncPolicy:
         automated:
