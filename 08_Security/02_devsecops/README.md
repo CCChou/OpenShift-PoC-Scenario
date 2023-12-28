@@ -23,6 +23,11 @@ sh scripts/createcred.sh [registry_url] [username] [password]
 oc apply -f yaml/
 ```
 
+建立 rox api token 並 patch
+```
+sh scripts/createroxtoken.sh
+```
+
 使用 tkn cli 觸發流水線
 ```
 tkn pipeline start build-and-deploy -w name=images-url,secret=container-registry-secret -w name=shared-workspace,claimName=source-pvc -p deployment-name=pipelines-vote-api -p git-url=https://github.com/openshift/pipelines-vote-api.git -p IMAGE=quay.io/rhtw/vote-api --showlog
