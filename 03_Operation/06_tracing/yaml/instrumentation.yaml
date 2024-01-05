@@ -1,0 +1,20 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: java-instrumentation
+  namespace: tracing-system
+spec:
+  env:
+    - name: OTEL_EXPORTER_OTLP_TIMEOUT
+      value: "20"
+  exporter:
+    endpoint: http://otel-collector:4317
+  propagators:
+    - tracecontext
+  sampler:
+    type: parentbased_traceidratio
+    argument: "1"
+  java:
+    env:
+    - name: OTEL_JAVAAGENT_DEBUG
+      value: "true"
