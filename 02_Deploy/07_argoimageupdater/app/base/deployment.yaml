@@ -16,7 +16,7 @@ spec:
         app: bgd
     spec:
       containers:
-        - image: BGD_IMAGE
+        - image: quay.io/rhtw/bgd
           name: bgd
           env:
             - name: COLOR
