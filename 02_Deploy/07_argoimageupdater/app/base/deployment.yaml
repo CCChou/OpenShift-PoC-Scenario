@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bgd
+  name: bgd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bgd
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: bgd
+    spec:
+      containers:
+        - image: BGD_IMAGE
+          name: bgd
+          env:
+            - name: COLOR
+              value: "blue"
+          resources: {}

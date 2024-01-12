@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: bgd-blue
+  name: bgd-blue
+spec:
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: bgd-blue
+    weight: 100
