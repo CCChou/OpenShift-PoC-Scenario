@@ -40,7 +40,7 @@ oc apply -f yaml/pipelines
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/pipeline.png)
 
 
-2. 執行任務
+2. 執行任務git
 
     a. 可透過 UI 點選 Start 並輸入參數後執行 pipeline 任務  
     ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/02_Deploy/06_tekton_gitops/image/pipelinerun-1.png)
@@ -50,7 +50,7 @@ oc apply -f yaml/pipelines
     > 3. **SOURCE_GIT_REVISION:** main
     > 4. **DOCKERFILE:** Dockerfile-openjdk
     > 5. **IMAGE:** quay.io/rhtw/caj-fare
-    > 6. **manifest-git-url:** 'https://[user_name]:[user_token]@github.com/CCChou/caj-fare-deploy.git'
+    > 6. **manifest-git-url:** 'git@github.com:CCChou/caj-fare-deploy.git'
     > 7. **manifest-git-revision:** main
     > 8. **manifest-path:** gitops/deployment.yaml
     > 9. **app-source:** 選擇 PersistentVolumeClaim 並選擇 caj-fare-pipeline-pvc
