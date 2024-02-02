@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: build-and-deploy-caj-fare-
+  namespace: caj-fare
+spec:
+  params:
+    - name: APP_NAME
+      value: caj-fare
+    - name: SOURCE_GIT_URL
+      value: 'https://github.com/CCChou/caj-fare.git'
+    - name: SOURCE_GIT_REVISION
+      value: main
+    - name: DOCKERFILE
+      value: Dockerfile-openjdk
+    - name: IMAGE
+      value: quay.io/rhtw/caj-fare
+    - name: manifest-git-url
+      value: 'git@github.com:CCChou/caj-fare-deploy.git'
+    - name: manifest-git-revision
+      value: main
+    - name: manifest-path
+      value: gitops/deployment.yaml
+  pipelineRef:
+    name: build-and-deploy-caj-fare
+  taskRunTemplate:
+    serviceAccountName: pipeline
+  timeouts:
+    pipeline: 1h0m0s
+  workspaces:
+    - name: app-source
+      persistentVolumeClaim:
+        claimName: caj-fare-pipeline-pvc
+    - name: images-url
+      secret:
+        secretName: container-registry-secret
+    - name: app-manifest
+      persistentVolumeClaim:
+        claimName: manifest-pvc
+    - name: git-cred
+      secret:
+        secretName: git-cred

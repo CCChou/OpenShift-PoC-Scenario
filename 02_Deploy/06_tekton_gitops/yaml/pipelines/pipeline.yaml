@@ -108,17 +108,15 @@ spec:
     taskRef:
       name: update-manifests
     workspaces:
-    - name: manifest
+    - name: output
       workspace: app-manifest
     - name: ssh-directory
       workspace: git-cred
     params:
-    - name: GIT_URL
+    - name: url
       value: $(params.manifest-git-url)
-    - name: GIT_REVISION
+    - name: revision
       value: $(params.manifest-git-revision)
-    - name: APP_NAME
-      value: $(params.APP_NAME)
     - name: DEPLOYMENT_PATH
       value: $(params.manifest-path)
     - name: IMAGE
