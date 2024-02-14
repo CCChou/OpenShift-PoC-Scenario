@@ -1,7 +1,7 @@
 # 環境資訊
 
-1. OpenShift version 4.12
-2. OpenShift pipeline version 1.10
+1. OpenShift version 4.14
+2. OpenShift pipeline version 1.13
 
 # 前置作業
 
@@ -15,19 +15,34 @@
 
 # 部署及驗證
 
-建立 pipeline 部署 namespace
+設定 PROJECT_NAME 環境變數
 ```
-oc apply -f yaml/pipeline_demo_ns.yaml
-```
-
-建立 task、pipeline、pvc
-```
-oc apply -f yaml/basic_pipeline_all.yaml
+export PROJECT_NAME=[project_name]
 ```
 
-透過 tkn CLI 建立 pipeline
+建立 pipeline 相關物件
 ```
-tkn pipeline start build-and-deploy -w name=shared-workspace,claimName=source-pvc -p deployment-name=pipelines-vote-api -p git-url=https://github.com/openshift/pipelines-vote-api.git -p IMAGE=image-registry.openshift-image-registry.svc:5000/pipeline-demo/vote-api --showlog
+sh script/setup.sh ${PROJECT_NAME}
+```
 
-tkn pipeline start build-and-deploy -w name=shared-workspace,claimName=source-pvc -p deployment-name=pipelines-vote-api -p git-url=https://github.com/openshift/pipelines-vote-ui.git -p IMAGE=image-registry.openshift-image-registry.svc:5000/pipeline-demo/vote-ui --showlog
+透過 tkn CLI 執行 pipeline 建置後端 api 程式
+```
+tkn pipeline start build-and-deploy \
+    -w name=shared-workspace,claimName=source-pvc \
+    -p git-revision=master \
+    -p deployment-name=pipelines-vote-api \
+    -p git-url=https://github.com/openshift/pipelines-vote-api.git \
+    -p IMAGE=image-registry.openshift-image-registry.svc:5000/${PROJECT_NAME}/vote-api \
+    --showlog
+```
+
+透過 tkn CLI 執行 pipeline 建置前端 ui 程式
+```
+tkn pipeline start build-and-deploy \
+    -w name=shared-workspace,claimName=source-pvc \
+    -p git-revision=master \
+    -p deployment-name=pipelines-vote-ui \
+    -p git-url=https://github.com/openshift/pipelines-vote-ui.git \
+    -p IMAGE=image-registry.openshift-image-registry.svc:5000/${PROJECT_NAME}/vote-ui \
+    --showlog
 ```
