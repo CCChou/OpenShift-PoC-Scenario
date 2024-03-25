@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1beta1
+kind: AlertmanagerConfig
+metadata:
+  name: alert-notifications
+  namespace: monitoringdemo
+  labels:
+    alertmanagerConfig: main
+spec:
+  route:
+    receiver: mail
+    groupBy: [job]
+    groupInterval: 5m
+    groupWait: 30s
+    repeatInterval: 2h
+  receivers:
+  - name: mail
+    emailConfigs:
+    - to: dechou@redhat.com				              
+      from: redhattwsa@outlook.com
+      smarthost: smtp-mail.outlook.com:587		
+      hello: smtp-mail.outlook.com
+      authUsername: redhattwsa@outlook.com
+      authPassword:
+        name: mail-password
+        key: password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mail-password
+  namespace: monitoringdemo
+stringData:
+  password: Openshift4!

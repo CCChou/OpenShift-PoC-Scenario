@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: example-alert-http-requests-total
+  namespace: monitoringdemo
+spec:
+  groups:
+  - name: example
+    rules:
+    - alert: httprequesthit
+      expr: http_requests_total{job="prometheus-example-app"} > 5
+      labels:
+        severity: critical
+        app: prometheus-example-app
+      annotations:
+        summary: Total request count is high
+        description: example app {{ $labels.service }} - High request count
+        message: Total message count is {{ $value }}
