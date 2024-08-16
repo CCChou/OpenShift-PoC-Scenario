@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - gitops-cluster-rb.yaml
+  - gitops-monitoring-rb.yaml
+  - rollout-manager.yaml
+  - rollout-ns.yaml
+  - rollouts-rb.yaml
+  - user-workload-cm.yaml

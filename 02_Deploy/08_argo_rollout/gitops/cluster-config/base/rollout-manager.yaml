@@ -1,0 +1,10 @@
+apiVersion: argoproj.io/v1alpha1
+kind: RolloutManager
+metadata:
+  name: argo-rollout
+  namespace: argo-rollouts
+  labels:
+    app.kubernetes.io/instance: cluster-configuration
+spec:
+  extraCommandArgs:
+    - "--namespaced=false"

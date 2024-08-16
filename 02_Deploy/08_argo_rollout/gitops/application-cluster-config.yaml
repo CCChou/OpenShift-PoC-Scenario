@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-configuration
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openshift-gitops
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    path: 02_Deploy/08_argo_rollout/gitops/cluster-config/base
+    repoURL: "https://github.com/CCChou/OpenShift-PoC-Scenario.git"
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
