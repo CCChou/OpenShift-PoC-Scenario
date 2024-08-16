@@ -11,7 +11,7 @@ spec:
   source:
     path: 02_Deploy/08_argo_rollout/app/shop-blue-green/base
     repoURL: "https://github.com/CCChou/OpenShift-PoC-Scenario.git"
-    targetRevision: rollouts
+    targetRevision: main
   syncPolicy:
     automated:
       prune: true
