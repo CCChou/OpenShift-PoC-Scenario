@@ -15,5 +15,5 @@ spec:
         web:
           jsonPath: "{$.status}"
           url: >-
-            http://discounts-umbrella-online.gitops.svc.cluster.local:8080/q/health/ready
+            http://discounts-umbrella-online.gitops-canary.svc.cluster.local:8080/q/health/ready
       successCondition: result == 'UP'
