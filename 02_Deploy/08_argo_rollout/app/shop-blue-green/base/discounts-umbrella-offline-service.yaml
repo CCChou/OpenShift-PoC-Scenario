@@ -7,7 +7,6 @@ metadata:
     app.kubernetes.io/name: discounts-umbrella
     app.kubernetes.io/version: 1.0.0
   name: discounts-umbrella-offline
-  # namespace: gitops
 spec:
   ports:
     - name: http

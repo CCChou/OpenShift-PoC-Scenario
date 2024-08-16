@@ -9,7 +9,7 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source:
-    path: 02_Deploy/08_argo_rollout/app/shop-blue-green/base
+    path: 02_Deploy/08_argo_rollout/app/shop-blue-green/overlays/rollout
     repoURL: "https://github.com/CCChou/OpenShift-PoC-Scenario.git"
     targetRevision: main
   syncPolicy:

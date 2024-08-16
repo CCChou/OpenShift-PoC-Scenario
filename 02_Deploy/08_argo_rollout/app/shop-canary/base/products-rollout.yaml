@@ -3,9 +3,44 @@ kind: Rollout
 metadata:
   labels:
     app: products
+    app.kubernetes.io/instance: shop
+    app.kubernetes.io/managed-by: kustomzie
+    app.kubernetes.io/name: products-umbrella
+    app.kubernetes.io/version: 1.0.0
   name: products
+  namespace: gitops
 spec:
+  replicas: 4
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: products
+      app.kubernetes.io/instance: shop
+      app.kubernetes.io/name: products-umbrella
+      version: none
+  strategy:
+    canary:
+      analysis:
+        templates:
+          - templateName: products-analysis-template
+      steps:
+        - setWeight: 10
+        - pause:
+            duration: 30s
+        - setWeight: 50
+        - pause:
+            duration: 30s
   template:
+    metadata:
+      annotations:
+        prometheus.io/path: /q/metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      labels:
+        app: products
+        app.kubernetes.io/instance: shop
+        app.kubernetes.io/name: products-umbrella
+        version: none
     spec:
       containers:
         - envFrom:
@@ -42,3 +77,5 @@ spec:
             timeoutSeconds: 10
           resources: {}
           securityContext: {}
+      securityContext: {}
+      serviceAccountName: default

@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/name: discounts-umbrella
     app.kubernetes.io/version: 1.0.0
   name: discounts
+  namespace: gitops
 spec:
   replicas: 2
   revisionHistoryLimit: 2
@@ -18,13 +19,14 @@ spec:
       app.kubernetes.io/name: discounts-umbrella
       version: none
   strategy:
-    blueGreen:
-      activeService: discounts-umbrella-online
-      autoPromotionEnabled: false
-      prePromotionAnalysis:
+    canary:
+      analysis:
         templates:
           - templateName: discounts-analysis-template
-      previewService: discounts-umbrella-offline
+      steps:
+        - setWeight: 50
+        - pause:
+            duration: 1m
   template:
     metadata:
       annotations:

@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shop-blue-green
+  name: shop-canary
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: gitops-blue-green
+    namespace: gitops-canary
     server: "https://kubernetes.default.svc"
   project: default
   source:
-    path: 02_Deploy/08_argo_rollout/app/shop-blue-green/overlays/rollout
+    path: 02_Deploy/08_argo_rollout/app/shop-canary/overlays/rollout
     repoURL: "https://github.com/CCChou/OpenShift-PoC-Scenario.git"
     targetRevision: main
   syncPolicy:

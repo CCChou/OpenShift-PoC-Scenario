@@ -7,7 +7,6 @@ metadata:
     app.kubernetes.io/name: products-umbrella
     app.kubernetes.io/version: 1.0.0
   name: products-umbrella-offline-prometheus-monitor
-  # namespace: gitops
 spec:
   endpoints:
     - interval: 30s

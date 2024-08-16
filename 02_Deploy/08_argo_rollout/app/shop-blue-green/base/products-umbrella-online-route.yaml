@@ -7,7 +7,6 @@ metadata:
     app.kubernetes.io/name: products-umbrella
     app.kubernetes.io/version: 1.0.0
   name: products-umbrella-online
-  # namespace: gitops
 spec:
   port:
     targetPort: 8080
