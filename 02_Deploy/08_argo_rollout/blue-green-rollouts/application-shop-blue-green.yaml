@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shop
+  name: shop-blue-green
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: gitops
+    namespace: gitops-blue-green
     server: "https://kubernetes.default.svc"
   project: default
   source:
