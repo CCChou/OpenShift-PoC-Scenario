@@ -12,6 +12,7 @@ resources:
   - discounts-umbrella-online-sm.yaml
   - products-umbrella-online-service.yaml
   - products-umbrella-online-sm.yaml
+  - products-umbrella-online-route.yaml
   - discounts-analysistemplate.yaml
   - products-analysistemplate.yaml
   - discounts-rollout.yaml
