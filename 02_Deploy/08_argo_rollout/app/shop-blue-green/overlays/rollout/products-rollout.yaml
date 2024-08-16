@@ -13,7 +13,7 @@ spec:
                 name: products-configmap-env
             - configMapRef:
                 name: products-configmap-env-base
-          image: "quay.io/dseveria/products:v1.0.1"
+          image: "quay.io/dseveria/products:v1.1.1"
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
