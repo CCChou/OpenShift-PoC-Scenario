@@ -9,4 +9,37 @@ spec:
   template:
     spec:
       containers:
-        - image: "quay.io/dseveria/products:v1.0.1"
+        - envFrom:
+            - configMapRef:
+                name: products-configmap-env
+            - configMapRef:
+                name: products-configmap-env-base
+          image: "quay.io/dseveria/products:v1.0.1"
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/live
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: quarkus-base
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/ready
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources: {}
+          securityContext: {}
