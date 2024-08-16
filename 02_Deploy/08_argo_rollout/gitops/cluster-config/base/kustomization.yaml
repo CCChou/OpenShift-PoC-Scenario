@@ -4,10 +4,10 @@ kind: Kustomization
 resources:
   - gitops-blue-green-ns.yaml
   - gitops-canary-ns.yaml
+  - rollout-ns.yaml
   - gitops-cluster-rb.yaml
   - gitops-monitoring-rb-blue-green.yaml
   - gitops-monitoring-rb-canary.yaml
   - rollout-manager.yaml
-  - rollout-ns.yaml
   - rollouts-rb.yaml
   - user-workload-cm.yaml
