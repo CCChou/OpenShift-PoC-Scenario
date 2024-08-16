@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  labels:
+    app: products
+    app.kubernetes.io/instance: shop
+    app.kubernetes.io/managed-by: kustomzie
+    app.kubernetes.io/name: products-umbrella
+    app.kubernetes.io/version: 1.0.0
+  name: products
+  # namespace: gitops
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: products
+      app.kubernetes.io/instance: shop
+      app.kubernetes.io/name: products-umbrella
+      version: none
+  strategy:
+    blueGreen:
+      activeService: products-umbrella-online
+      autoPromotionEnabled: false
+      prePromotionAnalysis:
+        templates:
+          - templateName: products-analysis-template
+      previewService: products-umbrella-offline
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /q/metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      labels:
+        app: products
+        app.kubernetes.io/instance: shop
+        app.kubernetes.io/name: products-umbrella
+        version: none
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: products-configmap-env
+            - configMapRef:
+                name: products-configmap-env-base
+          image: "quay.io/dseveria/products:v1.0.1"
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/live
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: quarkus-base
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/ready
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources: {}
+          securityContext: {}
+      securityContext: {}
+      serviceAccountName: default

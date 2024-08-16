@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  labels:
+    app: products
+  name: products
+  # namespace: gitops
+spec:
+  template:
+    spec:
+      containers:
+        image: "quay.io/dseveria/products:v1.1.1"

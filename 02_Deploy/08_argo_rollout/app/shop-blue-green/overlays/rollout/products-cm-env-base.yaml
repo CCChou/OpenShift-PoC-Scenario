@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  application.version: v1.1.1
+kind: ConfigMap
+metadata:
+  name: products-configmap-env-base
+  # namespace: gitops

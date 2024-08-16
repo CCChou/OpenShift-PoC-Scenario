@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: shop
+    app.kubernetes.io/managed-by: kustomzie
+    app.kubernetes.io/name: products-umbrella
+    app.kubernetes.io/version: 1.0.0
+  name: products-umbrella-offline-prometheus-monitor
+  # namespace: gitops
+spec:
+  endpoints:
+    - interval: 30s
+      path: /q/metrics
+      scheme: http
+      targetPort: 8080
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: shop
+      app.kubernetes.io/managed-by: kustomzie
+      app.kubernetes.io/name: products-umbrella
+      app.kubernetes.io/version: 1.0.0

@@ -1,0 +1,16 @@
+apiVersion: v1
+data:
+  application.mode: online
+  quarkus.rest-client.discounts-api.connection-ttl: "1"
+  quarkus.rest-client.discounts-api.scope: javax.inject.RequestScoped
+  quarkus.rest-client.discounts-api.url: "http://discounts-umbrella-online:8080"
+kind: ConfigMap
+metadata:
+  labels:
+    app: products-umbrella
+    app.kubernetes.io/instance: shop
+    app.kubernetes.io/managed-by: kustomzie
+    app.kubernetes.io/name: products-umbrella
+    app.kubernetes.io/version: 1.0.0
+  name: products-configmap-env
+  namespace: gitops

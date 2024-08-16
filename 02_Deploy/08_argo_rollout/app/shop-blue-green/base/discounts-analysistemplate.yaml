@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  labels:
+    app: discounts
+    app.kubernetes.io/instance: shop
+    app.kubernetes.io/managed-by: kustomzie
+    app.kubernetes.io/name: discounts-umbrella
+    app.kubernetes.io/version: 1.0.0
+  name: discounts-analysis-template
+  namespace: gitops
+spec:
+  metrics:
+    - name: discounts-webmetric
+      provider:
+        web:
+          jsonPath: "{$.status}"
+          url: >-
+            http://discounts-umbrella-offline.gitops.svc.cluster.local:8080/q/health/ready
+      successCondition: result == 'UP'
