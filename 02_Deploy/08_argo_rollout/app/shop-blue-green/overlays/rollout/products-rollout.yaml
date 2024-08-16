@@ -9,4 +9,4 @@ spec:
   template:
     spec:
       containers:
-        image: "quay.io/dseveria/products:v1.0.1"
+        - image: "quay.io/dseveria/products:v1.0.1"

@@ -8,10 +8,10 @@ resources:
 
 patches:
   - path: products-rollout.yaml
-    # target:
-    #   kind: Rollout
-    #   labelSelector: app=products
+    target:
+      kind: Rollout
+      labelSelector: app=products
   - path: products-cm-env-base.yaml
-    # target:
-    #   kind: ConfigMap
-    #   labelSelector: app=products
+    target:
+      kind: ConfigMap
+      labelSelector: app=products
