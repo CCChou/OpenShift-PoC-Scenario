@@ -3,7 +3,7 @@ kind: ServiceMonitor
 metadata:
   labels:
     app.kubernetes.io/instance: shop
-    app.kubernetes.io/managed-by: kustomzie
+    app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: discounts-umbrella
     app.kubernetes.io/version: 1.0.0
   name: discounts-umbrella-online-prometheus-monitor
@@ -16,6 +16,6 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/instance: shop
-      app.kubernetes.io/managed-by: kustomzie
+      app.kubernetes.io/managed-by: kustomize
       app.kubernetes.io/name: discounts-umbrella
       app.kubernetes.io/version: 1.0.0

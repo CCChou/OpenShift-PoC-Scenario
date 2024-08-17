@@ -22,6 +22,12 @@ oc apply -f gitops/application-cluster-config.yaml
 
 ### 測試藍綠部署
 
+建立 bluegreen 分支
+```bash
+git checkout -b bluegreen
+git push origin bluegreen
+```
+
 建立藍綠部署 argo application
 ```bash
 oc apply -f blue-green-rollouts/application-shop-blue-green.yaml
@@ -105,7 +111,7 @@ spec:
 ```bash
 git add .
 git commit -m "Change products version to v1.1.1"
-git push origin main
+git push origin bluegreen
 ```
 
 啟動換版指令
@@ -116,6 +122,12 @@ oc argo rollouts promote products -n gitops-blue-green
 若要執行 rollback，將 git commit revert 再 push 即可 (還是要啟動換版指令才能恢復到原版狀態)
 
 ### 測試金絲雀部署
+
+建立 canary 分支
+```bash
+git checkout -b canary
+git push origin canary
+```
 
 建立金絲雀部署 argo application
 ```bash
@@ -196,5 +208,5 @@ spec:
 ```bash
 git add .
 git commit -m "Change products version to v1.1.1"
-git push origin main
+git push origin canary
 ```

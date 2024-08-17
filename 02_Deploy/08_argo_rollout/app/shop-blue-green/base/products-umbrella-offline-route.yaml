@@ -3,7 +3,7 @@ kind: Route
 metadata:
   labels:
     app.kubernetes.io/instance: shop
-    app.kubernetes.io/managed-by: kustomzie
+    app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: products-umbrella
     app.kubernetes.io/version: 1.0.0
   name: products-umbrella-offline
