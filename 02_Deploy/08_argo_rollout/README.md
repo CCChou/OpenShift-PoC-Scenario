@@ -27,8 +27,18 @@ oc apply -f gitops/application-cluster-config.yaml
 git checkout -b bluegreen
 git push origin bluegreen
 ```
+修改 repo name 並建立藍綠部署 argo application
+```yaml
+spec:
+  destination:
+    namespace: gitops-blue-green
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    path: 02_Deploy/08_argo_rollout/app/shop-canary/overlays/rollout
+    repoURL: "https://github.com/change_me/OpenShift-PoC-Scenario.git"
+```
 
-建立藍綠部署 argo application
 ```bash
 oc apply -f blue-green-rollouts/application-shop-blue-green.yaml
 ```
@@ -129,7 +139,18 @@ git checkout -b canary
 git push origin canary
 ```
 
-建立金絲雀部署 argo application
+修改 repo name 並建立金絲雀部署 argo application
+```yaml
+spec:
+  destination:
+    namespace: gitops-blue-green
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    path: 02_Deploy/08_argo_rollout/app/shop-blue-green/overlays/rollout
+    repoURL: "https://github.com/change_me/OpenShift-PoC-Scenario.git"
+```
+
 ```bash
 oc apply -f canary-rollouts/application-shop-canary.yaml
 ```
@@ -209,4 +230,16 @@ spec:
 git add .
 git commit -m "Change products version to v1.1.1"
 git push origin canary
+```
+
+若要執行 rollback，將 version 改為 v1.0.1，並修改 rollout
+```yaml
+spec:
+  strategy:
+    canary:
+      analysis:
+        templates:
+          - templateName: products-analysis-template
+      steps:
+        - setWeight: 100
 ```

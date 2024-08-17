@@ -5,6 +5,15 @@ metadata:
     app: products
   name: products
 spec:
+  strategy:
+    canary:
+      steps:
+        - setWeight: 10 # rollback 時 修改 setWeight: 100
+        - pause:
+            duration: 30s
+        - setWeight: 50
+        - pause:
+            duration: 30s
   template:
     spec:
       containers:
