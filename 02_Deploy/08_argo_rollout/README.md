@@ -1,4 +1,4 @@
-# DevSecOps with ACS
+# Deploy with Argo Rollout
 
 ## 環境
 1. OpenShift 4.16
