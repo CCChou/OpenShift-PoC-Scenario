@@ -1,1 +1,0 @@
-Demo for quarkus app

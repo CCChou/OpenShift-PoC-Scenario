@@ -1,0 +1,87 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: kafka-qoute-processor
+  namespace: kafka-demo
+  labels:
+    app: kafka-qoute-processor
+    app.kubernetes.io/component: kafka-qoute-processor
+    app.kubernetes.io/instance: kafka-qoute-processor
+    app.kubernetes.io/name: kafka-qoute-processor
+    app.kubernetes.io/part-of: quote-app
+    app.openshift.io/runtime: quarkus
+    app.openshift.io/runtime-namespace: kafka-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-qoute-processor
+  template:
+    metadata:
+      labels:
+        app: kafka-qoute-processor
+        deployment: kafka-qoute-processor
+    spec:
+      containers:
+        - name: kafka-qoute-processor
+          image: "quay.io/rhtw/kafka-qoute-processor:v1.0.0"
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /deployments/truststore
+              name: truststore
+              readOnly: false
+          env:
+            - name: bootstrap_server
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: bootstrap_server
+            - name: security_protocol
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: security_protocol
+            - name: sasl_mechanism
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: sasl_mechanism
+            - name: kafka_cluster_sasl_jaas_config
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-user1
+                  key: sasl.jaas.config
+            - name: password
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-truststore
+                  key: password
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext:
+        runAsNonRoot: true
+      schedulerName: default-scheduler
+      volumes:
+        - name: truststore
+          secret:
+            secretName: kafka-truststore
+            defaultMode: 420
+            items:
+              - key: truststore.jks
+                path: truststore.jks
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
