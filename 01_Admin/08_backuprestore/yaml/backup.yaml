@@ -1,0 +1,8 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup-wordpress
+  namespace: openshift-adp
+spec:
+  includedNamespaces:
+    - wordpress

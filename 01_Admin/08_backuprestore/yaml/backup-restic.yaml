@@ -1,0 +1,10 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup-wordpress-restic
+  namespace: openshift-adp
+spec:
+  includedNamespaces:
+    - wordpress
+  defaultVolumesToRestic: true
+  ttl: 720h

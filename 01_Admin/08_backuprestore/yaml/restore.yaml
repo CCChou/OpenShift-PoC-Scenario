@@ -1,0 +1,11 @@
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: restore
+  namespace: openshift-adp
+spec:
+  includedNamespaces:
+    - wordpress
+  backupName: backup-wordpress
+  namespaceMapping:
+    wordpress: wordpress-restore
