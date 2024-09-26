@@ -1,0 +1,45 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-buckets-and-users
+  namespace: minio-dev
+spec:
+  backoffLimit: 4
+  template:
+    spec:
+      serviceAccount: minio-manage
+      serviceAccountName: minio-manage
+      initContainers:
+      - name: wait-for-minio
+        image: quay.io/rhtw/tools:1.2.0
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash"]
+        args:
+        - -ec
+        - |-
+          echo -n "Waiting for minio pod ready in minio-dev namespace"
+          while [ "true" != "$(oc get pod -n minio-dev -l app=minio -ojsonpath='{.items[0].status.containerStatuses[0].ready}')" ]; do
+              echo -n '.'
+              sleep 1
+          done
+          echo "Minio pod is running in minio-dev namespace"
+      containers:
+      - name: add-buckets-and-users
+        image: quay.io/rhtw/tools:1.2.0
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash"]
+        args:
+        - -ec
+        - |-
+          mc alias set minio-dev $AWS_S3_ENDPOINT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY
+          mc mb minio-dev/$LOKI_BUCKET
+          mc admin user add minio-dev $LOKI_USER $LOKI_PASSWORD
+          mc admin policy attach minio-dev readwrite --user $LOKI_USER
+        env:
+        - name: MC_CONFIG_DIR
+          value: "/tmp"
+        envFrom:
+        - secretRef:
+            name: minio-info
+      restartPolicy: Never

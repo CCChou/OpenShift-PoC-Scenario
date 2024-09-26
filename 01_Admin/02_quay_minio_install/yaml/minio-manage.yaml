@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: minio-info
+  namespace: minio-dev
+stringData:
+  AWS_ACCESS_KEY_ID: minioadmin
+  AWS_SECRET_ACCESS_KEY: minioadmin
+  AWS_S3_ENDPOINT: http://minio-svc.minio-dev.svc:9000
+  LOKI_BUCKET: loki
+  LOKI_USER: loki
+  LOKI_PASSWORD: openshift4!
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: minio-manage
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: minio-secrets
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+- kind: ServiceAccount
+  name: minio-manage
