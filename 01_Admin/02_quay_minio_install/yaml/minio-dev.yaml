@@ -21,20 +21,20 @@ spec:
         app: minio
     spec:
       containers:
-      - name: minio
-        image: quay.io/minio/minio:latest
-        command:
-        - /bin/bash
-        - -c
-        args: 
-        - minio server /data --console-address :9090
-        volumeMounts:
-        - mountPath: /data
-          name: minio-volume # Corresponds to the `spec.volumes` Persistent Volume
+        - name: minio
+          image: quay.io/minio/minio:latest
+          command:
+            - /bin/bash
+            - -c
+          args:
+            - minio server /data --console-address :9090
+          volumeMounts:
+            - mountPath: /data
+              name: minio-volume # Corresponds to the `spec.volumes` Persistent Volume
       volumes:
-      - name: minio-volume
-        persistentVolumeClaim:
-          claimName: minio-volume
+        - name: minio-volume
+          persistentVolumeClaim:
+            claimName: minio-volume
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -79,4 +79,6 @@ spec:
     name: minio-svc
   port:
     targetPort: 9090
-
+  tls:
+    termination: edge
+  wildcardPolicy: None
