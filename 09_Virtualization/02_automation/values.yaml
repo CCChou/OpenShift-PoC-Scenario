@@ -1,0 +1,34 @@
+vm:
+  name: "rhel9-abc"
+  namespace: "steven-vm"
+  appLabel: "rhel9-abc"
+  templateLabel: rhel9-server-small
+  sizeLabel: small
+  architecture: amd64
+  machineType: pc-q35-rhel9.4.0
+
+  annotations:
+    flavor: small
+    os: rhel9
+    workload: server
+
+  dataVolume:
+    name: "rhel9-abc"
+    sourceName: "rhel9"
+    sourceNamespace: "openshift-virtualization-os-images"
+    storageSize: "30Gi"
+
+  cpu:
+    cores: 1
+    sockets: 1
+    threads: 1
+
+  memory: "2Gi"
+
+  cloudInit:
+    user: "cloud-user"
+    password: "redhat!"
+
+  network:
+    macAddress: ""
+    headlessService: "headless"

@@ -1,0 +1,88 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: { { .Values.vm.name } }
+  namespace: { { .Values.vm.namespace } }
+  labels:
+    app: { { .Values.vm.appLabel } }
+    kubevirt.io/dynamic-credentials-support: "true"
+    vm.kubevirt.io/template: { { .Values.vm.templateLabel } }
+    vm.kubevirt.io/template.namespace: openshift
+    vm.kubevirt.io/template.revision: "1"
+    vm.kubevirt.io/template.version: v0.32.2
+spec:
+  dataVolumeTemplates:
+    - apiVersion: cdi.kubevirt.io/v1beta1
+      kind: DataVolume
+      metadata:
+        name: { { .Values.vm.dataVolume.name } }
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: { { .Values.vm.dataVolume.sourceName } }
+          namespace: { { .Values.vm.dataVolume.sourceNamespace } }
+        storage:
+          resources:
+            requests:
+              storage: { { .Values.vm.dataVolume.storageSize } }
+  runStrategy: RerunOnFailure
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/flavor: { { .Values.vm.annotations.flavor } }
+        vm.kubevirt.io/os: { { .Values.vm.annotations.os } }
+        vm.kubevirt.io/workload: { { .Values.vm.annotations.workload } }
+      labels:
+        kubevirt.io/domain: { { .Values.vm.name } }
+        kubevirt.io/size: { { .Values.vm.sizeLabel } }
+        network.kubevirt.io/headlessService:
+          { { .Values.vm.network.headlessService } }
+    spec:
+      architecture: { { .Values.vm.architecture } }
+      domain:
+        cpu:
+          cores: { { .Values.vm.cpu.cores } }
+          sockets: { { .Values.vm.cpu.sockets } }
+          threads: { { .Values.vm.cpu.threads } }
+        devices:
+          disks:
+            - disk:
+                bus: virtio
+              name: rootdisk
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+          interfaces:
+            - macAddress: {}
+              masquerade: {}
+              model: virtio
+              name: { { .Values.vm.network.interfacesName } }
+          logSerialConsole: false
+          rng: {}
+        features:
+          acpi: {}
+          smm:
+            enabled: true
+        firmware:
+          bootloader:
+            efi: {}
+        machine:
+          type: { { .Values.vm.machineType } }
+        memory:
+          guest: { { .Values.vm.memory } }
+        resources: {}
+      networks:
+        - name: default
+          pod: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+        - dataVolume:
+            name: { { .Values.vm.dataVolume.name } }
+          name: rootdisk
+        - cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              user: {{ .Values.vm.cloudInit.user }}
+              password: {{ .Values.vm.cloudInit.password }}
+              chpasswd: { expire: False }
+          name: cloudinitdisk
