@@ -17,7 +17,7 @@ oc apply -f yaml/node-problem-detector-config.yaml -f node-problem-detector-conf
 
 ## 展示流程
 設定 Custom Type Condition 名稱為 VMNetworkProblem
-![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/09_Virtualization/03_networkha/img/02.jpg)
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/09_Virtualization/03_networkha/img/02.png)
 
 設定 Status 為 True 並調整 Duration 至合適數值
-![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/09_Virtualization/03_networkha/img/03.jpg)
+![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/09_Virtualization/03_networkha/img/03.png)
