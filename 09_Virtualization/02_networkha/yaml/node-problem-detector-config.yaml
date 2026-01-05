@@ -1,0 +1,40 @@
+apiVersion: v1
+data:
+  vmnic-custom-plugin-monitor.json: |
+    {
+    "plugin": "custom",
+    "pluginConfig": {
+        "invoke_interval": "30s",
+        "timeout": "5s",
+        "max_output_length": 80,
+        "enable_message_change_based_condition_update": false
+    },
+    "source": "vmnic-custom-plugin-monitor",
+    "metricsReporting": true,
+    "conditions": [
+        {
+        "type": "VMNetworkProblem",
+        "reason": "VMNetworkIsUp",
+        "message": "vm nic is up"
+        }
+    ],
+    "rules": [
+        {
+        "type": "temporary",
+        "reason": "VMNetworkIsDown",
+        "path": "/plugin/checknic.sh",
+        "timeout": "3s"
+        },
+        {
+        "type": "permanent",
+        "condition": "VMNetworkProblem",
+        "reason": "VMNetworkIsDown",
+        "path": "/plugin/checknic.sh",
+        "timeout": "3s"
+        }
+    ]
+    }
+kind: ConfigMap
+metadata:
+  name: node-problem-detector-config
+  namespace: kube-system

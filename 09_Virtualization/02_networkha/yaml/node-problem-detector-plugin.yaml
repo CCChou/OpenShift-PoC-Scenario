@@ -1,0 +1,28 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: node-problem-detector-plugin
+  namespace: kube-system
+data:
+  checknic.sh: |-
+    #!/bin/sh
+
+    NIC_NAME=br-flat
+    NIC_STATUS_FILE=/sys/class/net/$NIC_NAME/carrier
+
+    # Check device exist or not
+    if [ ! -f "$NIC_STATUS_FILE" ]; then
+        echo "Link $NIC_NAME not found"
+        exit 2
+    fi
+
+    LINK_STATUS=$(cat $NIC_STATUS_FILE)
+
+    # Check device up or down
+    if [ "$LINK_STATUS" -eq 1 ]; then
+        echo "Link $NIC_NAME is up"
+        exit 0
+    else 
+        echo "Link $NIC_NAME is down"
+        exit 1
+    fi
