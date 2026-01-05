@@ -12,7 +12,7 @@
 ## 環境設定
 部署 npd daemonset
 ```yaml
-oc apply -f yaml/node-problem-detector-config.yaml -f node-problem-detector-config.yaml -f node-problem-detector-plugin.yaml -f rbac.yaml
+oc apply -f yaml/node-problem-detector.yaml -f node-problem-detector-config.yaml -f node-problem-detector-plugin.yaml -f rbac.yaml
 ```
 
 ## 展示流程
