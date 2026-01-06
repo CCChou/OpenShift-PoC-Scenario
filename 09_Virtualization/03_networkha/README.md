@@ -16,7 +16,7 @@ oc apply -f yaml/node-problem-detector.yaml -f node-problem-detector-config.yaml
 ```
 
 ## 展示流程
-當 NPD 建立完畢後可檢查節點 Condition 是否有新增 VMNetworkProblem 一個欄位
+當 NPD 建立完畢後可檢查節點 Condition 是否有新增 VMNetworkProblem 欄位
 ![](https://github.com/CCChou/OpenShift-PoC-Scenario/blob/main/09_Virtualization/03_networkha/img/01.png)
 
 建立 NodeHealthCheck
