@@ -9,10 +9,20 @@
 - Self Node Remediation Operator 0.11.0
 - Node Problem Detector 0.8.19
 
+## 元件與機制說明
+TODO 缺圖 (元件關係與 flow)
+
+| 檔案名稱 | 說明 |
+| - | - |
+| node-problem-detector.yaml | 以 daemonset 形式部署 npd 管理元件 | 
+| node-problem-detector-config.yaml | 定義 custom plugin 的參數，包含檢查規則 script、檢查間隔、客製 Condition 等資訊 |
+| node-problem-detector-plugin.yaml | 定義客製檢查規則，此範例是檢查名稱為 br-flat 的 nic 是否失去物理訊號，是實際環境需要自行調整規則與名稱 |
+
+
 ## 環境設定
 部署 npd daemonset
 ```yaml
-oc apply -f yaml/node-problem-detector.yaml -f node-problem-detector-config.yaml -f node-problem-detector-plugin.yaml -f rbac.yaml
+oc apply -f yaml/node-problem-detector.yaml -f yaml/node-problem-detector-config.yaml -f yaml/node-problem-detector-plugin.yaml -f yaml/rbac.yaml
 ```
 
 ## 展示流程
